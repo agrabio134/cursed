@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>$CURSED</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: #000;
+            font-family: 'Arial', sans-serif;
+        }
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: #000;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            animation: tv-on 1s forwards;
+        }
+        @keyframes tv-on {
+            0% { filter: brightness(0) blur(10px); }
+            50% { filter: brightness(0.5) blur(5px); }
+            100% { filter: brightness(1) blur(0); }
+        }
+        .loading-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            color: #fff;
+            font-family: 'Courier New', monospace;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1001;
+        }
+        .bios-screen, .boot-screen, .login-screen {
+            text-align: center;
+        }
+        .bios-screen p, .boot-screen p, .login-screen p {
+            margin: 10px;
+        }
+        .progress-bar {
+            width: 300px;
+            height: 20px;
+            border: 1px solid #fff;
+            margin: 20px auto;
+        }
+        .progress {
+            width: 0;
+            height: 100%;
+            background: #00ff00;
+            animation: load 3s forwards;
+        }
+        @keyframes load {
+            100% { width: 100%; }
+        }
+        .desktop {
+            width: 100%;
+            height: calc(100% - 30px);
+            background: #000 url('cursed.png') no-repeat center center;
+            background-size: 50%;
+            position: relative;
+            display: none;
+        }
+        .scanlines {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                to bottom,
+                transparent,
+                transparent 2px,
+                rgba(0, 0, 0, 0.15) 2px,
+                rgba(0, 0, 0, 0.15) 4px
+            );
+            pointer-events: none;
+            z-index: 10;
+        }
+        .icon {
+            position: absolute;
+            text-align: center;
+            color: #fff;
+            text-shadow: 0 0 5px #000;
+            cursor: pointer;
+            user-select: none;
+        }
+        .icon img {
+            width: 64px;
+            height: 64px;
+        }
+        .icon span {
+            display: block;
+            margin-top: 5px;
+            font-size: 12px;
+        }
+        .window {
+            position: absolute;
+            background: #c0c0c0;
+            border: 2px solid #000;
+            box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+            display: none;
+            resize: both;
+            overflow: auto;
+            z-index: 5;
+        }
+        .window-header {
+            background: linear-gradient(to right, #000080, #1084d0);
+            color: #fff;
+            padding: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: move;
+        }
+        .window-title {
+            font-size: 14px;
+        }
+        .window-buttons button {
+            background: #c0c0c0;
+            border: 1px solid #000;
+            padding: 2px 6px;
+            margin-left: 2px;
+            cursor: pointer;
+        }
+        .window-content {
+            padding: 10px;
+            background: #fff;
+            height: calc(100% - 30px);
+        }
+        #notepadContent {
+            width: 100%;
+            height: 100%;
+            border: none;
+            resize: none;
+            font-family: 'Courier New', monospace;
+        }
+        #explorerContent {
+            list-style: none;
+            padding: 0;
+        }
+        #explorerContent li {
+            padding: 5px;
+            cursor: pointer;
+        }
+        #explorerContent li:hover {
+            background: #e0e0e0;
+        }
+        #terminalContent {
+            background: #000;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            padding: 10px;
+            height: 100%;
+            overflow-y: auto;
+        }
+        .taskbar {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background: #c0c0c0;
+            height: 30px;
+            border-top: 1px solid #fff;
+            display: flex;
+            align-items: center;
+            padding: 0 5px;
+            z-index: 6;
+        }
+        .start-button {
+            background: #c0c0c0;
+            border: 1px solid #000;
+            padding: 2px 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+        .start-button img {
+            width: 16px;
+            height: 16px;
+            margin-right: 5px;
+        }
+        .start-menu {
+            position: absolute;
+            bottom: 30px;
+            left: 5px;
+            background: #c0c0c0;
+            border: 1px solid #000;
+            box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+            width: 200px;
+            display: none;
+            z-index: 7;
+        }
+        .start-menu ul {
+            list-style: none;
+            padding: 5px;
+            margin: 0;
+        }
+        .start-menu li {
+            padding: 5px;
+            cursor: pointer;
+        }
+        .start-menu li:hover {
+            background: #000080;
+            color: #fff;
+        }
+        .taskbar-apps {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            margin-left: 10px;
+        }
+        .taskbar-app {
+            background: #e0e0e0;
+            border: 1px solid #000;
+            padding: 2px 10px;
+            margin-right: 5px;
+            font-size: 12px;
+        }
+        .system-tray {
+            display: flex;
+            align-items: center;
+        }
+        .tray-icon {
+            width: 16px;
+            height: 16px;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+        .clock {
+            font-size: 12px;
+            margin-left: 10px;
+        }
+        .glitch {
+            animation: glitch 0.3s infinite alternate;
+        }
+        @keyframes glitch {
+            0% { transform: translate(0); opacity: 1; }
+            50% { transform: translate(3px, -3px); opacity: 0.6; }
+            100% { transform: translate(-3px, 3px); opacity: 0.8; }
+        }
+    </style>
+</head>
+<body>
+    <div class="modal">
+        <div class="loading-screen" id="loadingScreen">
+            <div class="bios-screen" id="biosScreen">
+                <p>BIOS v1.0.3 - Cursed Systems Inc.</p>
+                <p>Memory Test: 512 MB OK</p>
+                <p>Detecting Hardware... [OK]</p>
+                <p>Press [DEL] to enter setup (Disabled)</p>
+            </div>
+            <div class="boot-screen" id="bootScreen" style="display: none;">
+                <p>CursedOS v6.66</p>
+                <div class="progress-bar">
+                    <div class="progress"></div>
+                </div>
+                <p>Loading System Files...</p>
+            </div>
+            <div class="login-screen" id="loginScreen" style="display: none;">
+                <p>Welcome to CursedOS</p>
+                <p>User: [REDACTED]</p>
+                <p>Logging in...</p>
+            </div>
+        </div>
+        <div class="desktop" id="desktop">
+            <div class="scanlines"></div>
+            <div class="icon" style="top: 20px; left: 20px;" ondblclick="openWindow('fragment')">
+                <img src="https://img.icons8.com/ios/64/ffffff/txt.png" alt="Text File">
+                <span>Fragment-1721540624-Cursed-Whispers.txt</span>
+            </div>
+            <div class="icon" style="top: 120px; left: 20px;" ondblclick="openWindow('notepad')">
+                <img src="https://img.icons8.com/ios/64/ffffff/notepad.png" alt="Notepad">
+                <span>Cursed Notes</span>
+            </div>
+            <div class="icon" style="top: 220px; left: 20px;" ondblclick="openWindow('explorer')">
+                <img src="https://preview.redd.it/ia0x0hzj5vs71.png?width=1080&format=png&auto=webp&s=82ccbd407b6f0e803496253fac73615f4b08911d" alt="Folder">
+                <span>Archive Files</span>
+            </div>
+            <div class="icon" style="top: 320px; left: 20px;" ondblclick="openWindow('terminal')">
+                <img src="https://brandslogos.com/wp-content/uploads/images/large/terminal-logo.png" alt="Terminal">
+                <span>Dark Console</span>
+            </div>
+            <div class="icon" style="top: 20px; left: 120px;" ondblclick="openWindow('recycle')">
+                <img src="https://img.icons8.com/ios/64/ffffff/recycle-bin.png" alt="Recycle Bin">
+                <span>Recycle Bin</span>
+            </div>
+            <div class="icon" style="top: 120px; left: 120px;" ondblclick="openWindow('system')">
+                <img src="https://img.icons8.com/ios/64/ffffff/computer.png" alt="System Info">
+                <span>System Info</span>
+            </div>
+
+            <div class="window" id="fragmentWindow" style="width: 400px; height: 300px; top: 100px; left: 200px;">
+                <div class="window-header">
+                    <span class="window-title">$CURSED - Fragment-1721540624-Cursed-Whispers.txt</span>
+                    <div class="window-buttons">
+                        <button onclick="closeWindow('fragment')">X</button>
+                    </div>
+                </div>
+                <div class="window-content">
+                    <p>Download the fragment to uncover the secrets:</p>
+                    <a href="Fragment-1721540624-Cursed-Whispers.txt" download>Download Fragment-1721540624-Cursed-Whispers.txt</a>
+                </div>
+            </div>
+
+            <div class="window" id="notepadWindow" style="width: 400px; height: 300px; top: 120px; left: 240px;">
+                <div class="window-header">
+                    <span class="window-title">$CURSED - Cursed Notes</span>
+                    <div class="window-buttons">
+                        <button onclick="closeWindow('notepad')">X</button>
+                    </div>
+                </div>
+                <div class="window-content">
+                    <textarea id="notepadContent" readonly>Found a glitch in the archive. The code shifts when I look away. Something typed my name in the logs. Is it alive? Don’t trust the signal.</textarea>
+                </div>
+            </div>
+
+            <div class="window" id="explorerWindow" style="width: 400px; height: 300px; top: 140px; left: 280px;">
+                <div class="window-header">
+                    <span class="window-title">$CURSED - Archive Files</span>
+                    <div class="window-buttons">
+                        <button onclick="closeWindow('explorer')">X</button>
+                    </div>
+                </div>
+                <div class="window-content">
+                    <ul id="explorerContent">
+                        <li>unknown_signal.dat</li>
+                        <li>corrupted_log.bin</li>
+                        <li>hidden_key.txt</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="window" id="terminalWindow" style="width: 400px; height: 300px; top: 160px; left: 320px;">
+                <div class="window-header">
+                    <span class="window-title">$CURSED - Dark Console</span>
+                    <div class="window-buttons">
+                        <button onclick="closeWindow('terminal')">X</button>
+                    </div>
+                </div>
+                <div class="window-content">
+                    <div id="terminalContent" class="glitch">
+                        > Accessing archive... ERROR: Access Denied
+                        > Running deep scan... ANOMALY DETECTED
+                        > ca: soon
+                    </div>
+                </div>
+            </div>
+
+            <div class="window" id="recycleWindow" style="width: 400px; height: 300px; top: 180px; left: 360px;">
+                <div class="window-header">
+                    <span class="window-title">$CURSED - Recycle Bin</span>
+                    <div class="window-buttons">
+                        <button onclick="closeWindow('recycle')">X</button>
+                    </div>
+                </div>
+                <div class="window-content">
+                    <p>Deleted files: [REDACTED]. Recovery impossible.</p>
+                </div>
+            </div>
+
+            <div class="window" id="systemWindow" style="width: 400px; height: 300px; top: 200px; left: 400px;">
+                <div class="window-header">
+                    <span class="window-title">$CURSED - System Info</span>
+                    <div class="window-buttons">
+                        <button onclick="closeWindow('system')">X</button>
+                    </div>
+                </div>
+                <div class="window-content">
+                    <p>OS: CursedOS v6.66</p>
+                    <p>CPU: Unknown (Overclocked)</p>
+                    <p>Status: COMPROMISED</p>
+                </div>
+            </div>
+
+            <div class="taskbar">
+                <button class="start-button" onclick="toggleStartMenu()">
+                    <img src="https://img.icons8.com/ios/16/ffffff/windows.png" alt="Start">
+                    Start
+                </button>
+                <div class="taskbar-apps">
+                    <div class="taskbar-app">Fragment</div>
+                    <div class="taskbar-app">Console</div>
+                </div>
+                <div class="system-tray">
+                    <img class="tray-icon" src="https://img.icons8.com/ios/16/ffffff/wifi.png" alt="WiFi">
+                    <img class="tray-icon" src="https://img.icons8.com/ios/16/ffffff/volume-up.png" alt="Volume">
+                    <span class="clock" id="clock"></span>
+                </div>
+            </div>
+            <div class="start-menu" id="startMenu">
+                <ul>
+                    <li onclick="openWindow('notepad')">Cursed Notes</li>
+                    <li onclick="openWindow('explorer')">Archive Files</li>
+                    <li onclick="openWindow('terminal')">Dark Console</li>
+                    <li>Settings</li>
+                    <li>Shutdown</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script>
+        function openWindow(id) {
+            const window = document.getElementById(`${id}Window`);
+            window.style.display = 'block';
+        }
+
+        function closeWindow(id) {
+            const window = document.getElementById(`${id}Window`);
+            window.style.display = 'none';
+        }
+
+        function toggleStartMenu() {
+            const menu = document.getElementById('startMenu');
+            menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+        }
+
+        // Draggable windows
+        const windows = document.querySelectorAll('.window');
+        windows.forEach(win => {
+            const header = win.querySelector('.window-header');
+            let isDragging = false;
+            let currentX;
+            let currentY;
+            let initialX;
+            let initialY;
+
+            header.addEventListener('mousedown', e => {
+                initialX = e.clientX - currentX;
+                initialY = e.clientY - currentY;
+                isDragging = true;
+            });
+
+            document.addEventListener('mousemove', e => {
+                if (isDragging) {
+                    e.preventDefault();
+                    currentX = e.clientX - initialX;
+                    currentY = e.clientY - initialY;
+                    win.style.left = currentX + 'px';
+                    win.style.top = currentY + 'px';
+                }
+            });
+
+            document.addEventListener('mouseup', () => {
+                isDragging = false;
+            });
+
+            currentX = parseInt(win.style.left) || 0;
+            currentY = parseInt(win.style.top) || 0;
+        });
+
+        // Loading sequence
+        const biosScreen = document.getElementById('biosScreen');
+        const bootScreen = document.getElementById('bootScreen');
+        const loginScreen = document.getElementById('loginScreen');
+        const loadingScreen = document.getElementById('loadingScreen');
+        const desktop = document.getElementById('desktop');
+
+        setTimeout(() => {
+            biosScreen.style.display = 'none';
+            bootScreen.style.display = 'block';
+        }, 2000);
+
+        setTimeout(() => {
+            bootScreen.style.display = 'none';
+            loginScreen.style.display = 'block';
+        }, 6000);
+
+        setTimeout(() => {
+            loadingScreen.style.display = 'none';
+            desktop.style.display = 'block';
+        }, 9000);
+
+        // Update clock
+        function updateClock() {
+            const now = new Date();
+            const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            document.getElementById('clock').textContent = time;
+        }
+        updateClock();
+        setInterval(updateClock, 1000);
+
+        // Random glitch effect on desktop
+        setInterval(() => {
+            if (Math.random() < 0.1) {
+                desktop.classList.add('glitch');
+                setTimeout(() => {
+                    desktop.classList.remove('glitch');
+                }, 200);
+            }
+        }, 3000);
+    </script>
+</body>
+</html>

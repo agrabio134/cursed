@@ -6,67 +6,123 @@
     <title>Cursed Archive: Fragment-1721540624-Cursed-Whispers.txt</title>
     <style>
         body {
-            background-color: #0a0a0a;
-            color: #e0e0e0;
+            background-color: #000;
+            color: #00ff00;
             font-family: 'Courier New', Courier, monospace;
             margin: 0;
             padding: 20px;
             line-height: 1.6;
             overflow-x: hidden;
+            position: relative;
         }
         .container {
             max-width: 800px;
             margin: 0 auto;
-            background-color: #1a1a1a;
+            background-color: rgba(0, 10, 0, 0.9);
             padding: 20px;
-            border: 1px solid #333;
-            box-shadow: 0 0 10px rgba(255, 0, 0, 0.2);
+            border: 2px solid #003300;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.4);
+            position: relative;
+            z-index: 1;
+        }
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                to bottom,
+                transparent,
+                transparent 2px,
+                rgba(0, 0, 0, 0.15) 2px,
+                rgba(0, 0, 0, 0.15) 4px
+            );
+            pointer-events: none;
+            z-index: 10;
         }
         h1 {
-            color: #ff4d4d;
+            color: #ff0000;
             font-size: 1.5em;
             text-align: center;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
+            text-shadow: 0 0 8px #ff0000;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { text-shadow: 0 0 8px #ff0000; }
+            50% { text-shadow: 0 0 12px #ff0000; }
+            100% { text-shadow: 0 0 8px #ff0000; }
         }
         .terminal {
             background-color: #000;
             padding: 15px;
-            border: 1px solid #444;
+            border: 1px solid #003300;
             white-space: pre-wrap;
             font-size: 0.9em;
-            color: #c0c0c0;
+            color: #00ff00;
+            min-height: 300px;
         }
         .terminal::before {
             content: ">>> Accessing Cursed Archive... [Fragment-1721540624-Cursed-Whispers.txt]";
-            color: #ff4d4d;
+            color: #ff0000;
             display: block;
             margin-bottom: 10px;
+            text-shadow: 0 0 5px #ff0000;
         }
         .glitch {
-            color: #ff4d4d;
-            animation: glitch 1s infinite;
+            color: #ff0000;
+            position: relative;
+            animation: glitch 0.3s infinite alternate;
         }
         @keyframes glitch {
+            0% { transform: translate(0); opacity: 1; }
+            50% { transform: translate(3px, -3px); opacity: 0.6; }
+            100% { transform: translate(-3px, 3px); opacity: 0.8; }
+        }
+        .typing {
+            border-right: 2px solid #00ff00;
+            animation: blink 0.5s step-end infinite;
+        }
+        @keyframes blink {
+            50% { border-color: transparent; }
+        }
+        .scan-progress {
+            color: #00ff00;
+            margin-bottom: 10px;
+            display: none;
+        }
+        .hint:hover {
+            color: #ff0000;
+            cursor: pointer;
+            animation: shake 0.1s infinite;
+        }
+        @keyframes shake {
             0% { transform: translate(0); }
-            20% { transform: translate(-2px, 2px); }
-            40% { transform: translate(2px, -2px); }
-            60% { transform: translate(-2px, -2px); }
-            80% { transform: translate(2px, 2px); }
-            100% { transform: translate(0); }
+            50% { transform: translate(1px, -1px); }
+            100% { transform: translate(-1px, 1px); }
         }
-        a {
-            color: #ff4d4d;
+        a, .open-computer {
+            color: #ff0000;
             text-decoration: none;
+            text-shadow: 0 0 3px #ff0000;
+            cursor: pointer;
         }
-        a:hover {
+        a:hover, .open-computer:hover {
             text-decoration: underline;
+            animation: flicker 0.1s infinite;
+        }
+        @keyframes flicker {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
         }
         .footer {
             text-align: center;
             margin-top: 20px;
             font-size: 0.8em;
-            color: #666;
+            color: #006600;
         }
         .video-container {
             margin: 20px 0;
@@ -74,38 +130,260 @@
         }
         video {
             max-width: 100%;
-            border: 1px solid #444;
-            box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+            border: 2px solid #003300;
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.4);
+            filter: contrast(1.3);
+        }
+        .open-computer-container {
+            text-align: center;
+            margin: 10px 0;
+        }
+        .glitch-distort {
+            filter: hue-rotate(90deg) blur(2px);
+        }
+        .screen-shake {
+            animation: shake-screen 0.1s;
+        }
+        @keyframes shake-screen {
+            0% { transform: translate(0); }
+            25% { transform: translate(2px, -2px); }
+            50% { transform: translate(-2px, 2px); }
+            75% { transform: translate(2px, 2px); }
+            100% { transform: translate(0); }
+        }
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: #000;
+            z-index: 1000;
+            display: none;
+            flex-direction: column;
+            animation: tv-on 1s forwards;
+        }
+        @keyframes tv-on {
+            0% { filter: brightness(0) blur(10px); }
+            50% { filter: brightness(0.5) blur(5px); }
+            100% { filter: brightness(1) blur(0); }
+        }
+        .loading-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            color: #fff;
+            font-family: 'Courier New', monospace;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1001;
+        }
+        .bios-screen, .boot-screen, .login-screen {
+            text-align: center;
+        }
+        .bios-screen p, .boot-screen p, .login-screen p {
+            margin: 10px;
+        }
+        .progress-bar {
+            width: 300px;
+            height: 20px;
+            border: 1px solid #fff;
+            margin: 20px auto;
+        }
+        .progress {
+            width: 0;
+            height: 100%;
+            background: #00ff00;
+            animation: load 3s forwards;
+        }
+        @keyframes load {
+            100% { width: 100%; }
+        }
+        .desktop {
+            width: 100%;
+            height: calc(100% - 30px);
+            background: #000 url('cursed.png') no-repeat center center;
+            background-size: 50%;
+            position: relative;
+            display: none;
+        }
+        .icon {
+            position: absolute;
+            text-align: center;
+            color: #fff;
+            text-shadow: 0 0 5px #000;
+            cursor: pointer;
+            user-select: none;
+        }
+        .icon img {
+            width: 64px;
+            height: 64px;
+        }
+        .icon span {
+            display: block;
+            margin-top: 5px;
+            font-size: 12px;
+        }
+        .window {
+            position: absolute;
+            background: #c0c0c0;
+            border: 2px solid #000;
+            box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+            display: none;
+            resize: both;
+            overflow: auto;
+            z-index: 5;
+        }
+        .window-header {
+            background: linear-gradient(to right, #000080, #1084d0);
+            color: #fff;
+            padding: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: move;
+        }
+        .window-title {
+            font-size: 14px;
+        }
+        .window-buttons button {
+            background: #c0c0c0;
+            border: 1px solid #000;
+            padding: 2px 6px;
+            margin-left: 2px;
+            cursor: pointer;
+        }
+        .window-content {
+            padding: 10px;
+            background: #fff;
+            height: calc(100% - 30px);
+        }
+        #fragmentContent, #notepadContent {
+            width: 100%;
+            height: 100%;
+            border: none;
+            resize: none;
+            font-family: 'Courier New', monospace;
+        }
+        #explorerContent {
+            list-style: none;
+            padding: 0;
+        }
+        #explorerContent li {
+            padding: 5px;
+            cursor: pointer;
+        }
+        #explorerContent li:hover {
+            background: #e0e0e0;
+        }
+        #terminalContent {
+            background: #000;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            padding: 10px;
+            height: 100%;
+            overflow-y: auto;
+        }
+        #terminalInput {
+            background: #000;
+            color: #00ff00;
+            border: none;
+            width: 100%;
+            font-family: 'Courier New', monospace;
+        }
+        .taskbar {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background: #c0c0c0;
+            height: 30px;
+            border-top: 1px solid #fff;
+            display: flex;
+            align-items: center;
+            padding: 0 5px;
+            z-index: 6;
+        }
+        .start-button {
+            background: #c0c0c0;
+            border: 1px solid #000;
+            padding: 2px 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+        .start-button img {
+            width: 16px;
+            height: 16px;
+            margin-right: 5px;
+        }
+        .start-menu {
+            position: absolute;
+            bottom: 30px;
+            left: 5px;
+            background: #c0c0c0;
+            border: 1px solid #000;
+            box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+            width: 200px;
+            display: none;
+            z-index: 7;
+        }
+        .start-menu ul {
+            list-style: none;
+            padding: 5px;
+            margin: 0;
+        }
+        .start-menu li {
+            padding: 5px;
+            cursor: pointer;
+        }
+        .start-menu li:hover {
+            background: #000080;
+            color: #fff;
+        }
+        .taskbar-apps {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            margin-left: 10px;
+        }
+        .taskbar-app {
+            background: #e0e0e0;
+            border: 1px solid #000;
+            padding: 2px 10px;
+            margin-right: 5px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+        .system-tray {
+            display: flex;
+            align-items: center;
+        }
+        .tray-icon {
+            width: 16px;
+            height: 16px;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+        .clock {
+            font-size: 12px;
+            margin-left: 10px;
         }
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="scanlines"></div>
+    <div class="container crt-flicker">
         <h1>Cursed Archive: Fragment-1721540624-Cursed-Whispers.txt</h1>
-        <div class="terminal">
-            [SYSTEM LOG: 06/26/2025 11:32:17 PST]
-            WARNING: Unauthorized access detected. Archive integrity compromised.
-            Displaying fragment [1721540624-Cursed-Whispers.txt]...
-
-            ---
-
-            I found it in the static, buried in the hum of a dead signal. The word came first, sharp like a blade: <span class="glitch">CURSED</span>. Not spoken, not written, but *felt*—a weight in the air, a pulse in the dark. The screen flickered, and the archive opened.
-
-            They say the internet never forgets, but it also never tells the whole truth. This file, this fragment, it’s not meant to be read. It’s a trap, a loop, a whisper that binds. I tried to close it, but the cursor wouldn’t move. The keys stuck, repeating: C-U-R-S-E-D.
-
-            There was a voice, or maybe it was just static shaped like one. It said: “You’ve seen it now. You’re part of it.” The room grew cold. My shadow moved before I did. The screen showed things—symbols, glyphs, a face that wasn’t mine but wore my eyes. It typed: “You can’t leave.”
-
-            I’m writing this as a warning, but it’s too late for me. The archive is alive, and it’s hungry. It collects fragments of those who find it, weaves them into its code. If you’re reading this, you’ve already clicked the link, haven’t you? You felt the pull, the itch to know.
-
-            Don’t trust the words. They shift. They lie. The curse isn’t in the file—it’s in you now. Close your eyes. Count to ten. If you still hear the hum, it’s already over.
-
-            [END OF FRAGMENT]
-            [SYSTEM ERROR: Connection terminated. Archive sealed.]
-
-            ---
-
-            <span class="glitch">ca: soon</span>
-
+        <div class="terminal" id="terminal">
+            <div class="scan-progress" id="scanProgress"></div>
+        </div>
+        <div class="open-computer-container">
+            <span class="open-computer" onclick="openModal()">Open Computer</span>
         </div>
         <div class="video-container">
             <video autoplay loop muted playsinline>
@@ -118,5 +396,482 @@
             <p>© 2025 Cursed Digital Vault. All rights reserved.</p>
         </div>
     </div>
+    <div class="modal" id="modal">
+        <div class="loading-screen" id="loadingScreen">
+            <div class="bios-screen" id="biosScreen">
+                <p>BIOS v1.0.3 - Cursed Systems Inc.</p>
+                <p>Memory Test: 512 MB OK</p>
+                <p>Detecting Hardware... [OK]</p>
+                <p>Press [DEL] to enter setup (Disabled)</p>
+            </div>
+            <div class="boot-screen" id="bootScreen" style="display: none;">
+                <p>CursedOS v6.66</p>
+                <div class="progress-bar">
+                    <div class="progress"></div>
+                </div>
+                <p>Loading System Files...</p>
+            </div>
+            <div class="login-screen" id="loginScreen" style="display: none;">
+                <p>Welcome to CursedOS</p>
+                <p>User: [REDACTED]</p>
+                <p>Logging in...</p>
+            </div>
+        </div>
+        <div class="desktop" id="desktop">
+            <div class="scanlines"></div>
+            <div class="icon" id="fragmentIcon" style="top: 20px; left: 20px;" ondblclick="openWindow('fragment')">
+                <img src="https://img.icons8.com/ios/64/ffffff/txt.png" alt="Text File">
+                <span>Fragment-1721540624-Cursed-Whispers.txt</span>
+            </div>
+            <div class="icon" id="notepadIcon" style="top: 120px; left: 20px;" ondblclick="openWindow('notepad')">
+                <img src="https://img.icons8.com/ios/64/ffffff/notepad.png" alt="Notepad">
+                <span>Cursed Notes</span>
+            </div>
+            <div class="icon" id="explorerIcon" style="top: 220px; left: 20px;" ondblclick="openWindow('explorer')">
+                <img src="https://preview.redd.it/ia0x0hzj5vs71.png?width=1080&format=png&auto=webp&s=82ccbd407b6f0e803496253fac73615f4b08911d" alt="Folder">
+                <span>Archive Files</span>
+            </div>
+            <div class="icon" id="terminalIcon" style="top: 320px; left: 20px;" ondblclick="openWindow('terminal')">
+                <img src="https://brandslogos.com/wp-content/uploads/images/large/terminal-logo.png" alt="Terminal">
+                <span>Dark Console</span>
+            </div>
+            <div class="icon" id="recycleIcon" style="top: 20px; left: 120px;" ondblclick="openWindow('recycle')">
+                <img src="https://img.icons8.com/ios/64/ffffff/recycle-bin.png" alt="Recycle Bin">
+                <span>Recycle Bin</span>
+            </div>
+            <div class="icon" id="systemIcon" style="top: 120px; left: 120px;" ondblclick="openWindow('system')">
+                <img src="https://img.icons8.com/ios/64/ffffff/computer.png" alt="System Info">
+                <span>System Info</span>
+            </div>
+
+            <div class="window" id="fragmentWindow" style="width: 400px; height: 300px; top: 100px; left: 200px;">
+                <div class="window-header">
+                    <span class="window-title">$CURSED - Fragment-1721540624-Cursed-Whispers.txt</span>
+                    <div class="window-buttons">
+                        <button onclick="closeWindow('fragment')">X</button>
+                    </div>
+                </div>
+                <div class="window-content">
+                    <textarea id="fragmentContent" readonly>
+[LOG: 06/26/2025 12:29:00 PST]
+[ALERT: Archive integrity failing. Unauthorized access.]
+
+---
+
+Fragment recovered from [REDACTED]. Do not trust the terminal. The archive lies.
+
+> 0xDEADBEEF: Signal intercepted. Origin unknown. It whispers: CURSED.
+> Is it a rug? A base? A trap? No one knows. The dev is silent—bot, dead, or worse.
+> CODE: 47-72-6F-6B-33 [HINT: Decode the name. It watches.]
+
+The archive isn’t a place. It’s a predator. It knows you’re reading this. The hum—feel it? Your name is in the logs now. The others tried to warn us:
+
+- User_001: “The screen moved. It saw me.” [STATUS: Offline]
+- User_042: “Code changes when I blink.” [STATUS: Rewritten]
+- User_666: “It’s in my head.” [STATUS: Unknown]
+
+[CRYPTO-LOCK: 3-1-9-7-2]
+> HINT: Rearrange. The number opens the gate. But do you dare?
+
+The video—cursed.mp4—don’t watch it twice. The frames shift. Eyes appear. The dev left a message in the static: “ca: soon.” Soon what? The end? The beginning? Everything is cursed.
+
+[WARNING: Your IP was logged. 127.0.0.1 is not safe.]
+> FINAL HINT: The archive hides in plain sight. Check the source. Find the key.
+
+[DROPPED CONNECTION]
+
+---
+                    </textarea>
+                    <p><a href="Fragment-1721540624-Cursed-Whispers.txt" download>Download Fragment</a></p>
+                </div>
+            </div>
+
+            <div class="window" id="notepadWindow" style="width: 400px; height: 300px; top: 120px; left: 240px;">
+                <div class="window-header">
+                    <span class="window-title">$CURSED - Cursed Notes</span>
+                    <div class="window-buttons">
+                        <button onclick="closeWindow('notepad')">X</button>
+                    </div>
+                </div>
+                <div class="window-content">
+                    <textarea id="notepadContent">Found a glitch in the archive. The code shifts when I look away. Something typed my name in the logs. Is it alive? Don’t trust the signal.</textarea>
+                </div>
+            </div>
+
+            <div class="window" id="explorerWindow" style="width: 400px; height: 300px; top: 140px; left: 280px;">
+                <div class="window-header">
+                    <span class="window-title">$CURSED - Archive Files</span>
+                    <div class="window-buttons">
+                        <button onclick="closeWindow('explorer')">X</button>
+                    </div>
+                </div>
+                <div class="window-content">
+                    <ul id="explorerContent">
+                        <li onclick="showFileContent('unknown_signal.dat')">unknown_signal.dat</li>
+                        <li onclick="showFileContent('corrupted_log.bin')">corrupted_log.bin</li>
+                        <li onclick="showFileContent('hidden_key.txt')">hidden_key.txt</li>
+                    </ul>
+                    <div id="fileContent" style="margin-top: 10px;"></div>
+                </div>
+            </div>
+
+            <div class="window" id="terminalWindow" style="width: 400px; height: 300px; top: 160px; left: 320px;">
+                <div class="window-header">
+                    <span class="window-title">$CURSED - Dark Console</span>
+                    <div class="window-buttons">
+                        <button onclick="closeWindow('terminal')">X</button>
+                    </div>
+                </div>
+                <div class="window-content">
+                    <div id="terminalContent" class="glitch">
+                        > Accessing archive... ERROR: Access Denied
+                        > Running deep scan... ANOMALY DETECTED
+                        > ca: soon
+                    </div>
+                    <input id="terminalInput" type="text" placeholder="> Type command..." onkeydown="handleTerminalInput(event)">
+                </div>
+            </div>
+
+            <div class="window" id="recycleWindow" style="width: 400px; height: 300px; top: 180px; left: 360px;">
+                <div class="window-header">
+                    <span class="window-title">$CURSED - Recycle Bin</span>
+                    <div class="window-buttons">
+                        <button onclick="closeWindow('recycle')">X</button>
+                    </div>
+                </div>
+                <div class="window-content">
+                    <p>Deleted files: [REDACTED]. Recovery impossible.</p>
+                </div>
+            </div>
+
+            <div class="window" id="systemWindow" style="width: 400px; height: 300px; top: 200px; left: 400px;">
+                <div class="window-header">
+                    <span class="window-title">$CURSED - System Info</span>
+                    <div class="window-buttons">
+                        <button onclick="closeWindow('system')">X</button>
+                    </div>
+                </div>
+                <div class="window-content">
+                    <p>OS: CursedOS v6.66</p>
+                    <p>CPU: Unknown (Overclocked)</p>
+                    <p>Status: COMPROMISED</p>
+                </div>
+            </div>
+
+            <div class="taskbar">
+                <button class="start-button" onclick="toggleStartMenu()">
+                    <img src="https://img.icons8.com/ios/16/ffffff/windows.png" alt="Start">
+                    Start
+                </button>
+                <div class="taskbar-apps" id="taskbarApps">
+                    <div class="taskbar-app" onclick="focusWindow('fragment')">Fragment</div>
+                    <div class="taskbar-app" onclick="focusWindow('terminal')">Console</div>
+                </div>
+                <div class="system-tray">
+                    <img class="tray-icon" src="https://img.icons8.com/ios/16/ffffff/wifi.png" alt="WiFi">
+                    <img class="tray-icon" src="https://img.icons8.com/ios/16/ffffff/volume-up.png" alt="Volume">
+                    <span class="clock" id="clock"></span>
+                </div>
+            </div>
+            <div class="start-menu" id="startMenu">
+                <ul>
+                    <li onclick="openWindow('notepad')">Cursed Notes</li>
+                    <li onclick="openWindow('explorer')">Archive Files</li>
+                    <li onclick="openWindow('terminal')">Dark Console</li>
+                    <li onclick="openWindow('recycle')">Recycle Bin</li>
+                    <li onclick="openWindow('system')">System Info</li>
+                    <li onclick="closeModal()">Shutdown</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script>
+        const terminal = document.getElementById('terminal');
+        const scanProgress = document.getElementById('scanProgress');
+        const modal = document.getElementById('modal');
+        const loadingScreen = document.getElementById('loadingScreen');
+        const desktop = document.getElementById('desktop');
+        const biosScreen = document.getElementById('biosScreen');
+        const bootScreen = document.getElementById('bootScreen');
+        const loginScreen = document.getElementById('loginScreen');
+
+        const text = `
+[SYSTEM LOG: 06/26/2025 12:29:00 PST]
+<span class="glitch">WARNING: Intrusion detected. Archive defenses breached.</span>
+Displaying fragment [1721540624-Cursed-Whispers.txt]...
+
+---
+
+A scream in the static, a blade in the dark: <span class="glitch">CURSED</span>. It wasn’t typed, wasn’t spoken—it burned into being, searing the edges of reality. The archive tore open, and the void stared back.
+
+The web is a lie, a tapestry of forgotten graves. This fragment is forbidden, a trap woven from whispers that cling like damp rot. I tried to shut it down, but the keys betrayed me, spitting out: C-U-R-S-E-D. The screen pulsed, alive, its voice a jagged hiss: “You belong to us now.”
+
+The air turned to ice. My reflection in the monitor wasn’t mine—it grinned with teeth I don’t have. It typed: “No escape.” The archive feeds on you, threads your soul into its code. Is it a rug? A base? A trap? No one knows. The truth is buried in the static.
+
+The dev is gone. Dev is bot. Dev is dead. Dev is <span class="glitch">CURSED</span>. You’re cursed. Everything is cursed. The hum in your skull—louder now, isn’t it? The archive knows your name. It’s written in the <span class="hint">code</span>.
+
+[ARCHIVE BREACH DETECTED]
+<span class="glitch">>>> SYSTEM OVERRIDE: It’s watching. Every key you press, every breath you take—it logs. The others who found this were erased, their lives rewritten as ones and zeros. The <span class="hint">signal</span> is alive. Did you hear that? Behind you. The archive doesn’t forget. Don’t look away.</span>
+
+[END OF FRAGMENT]
+<span class="glitch">[SYSTEM FAILURE: Connection lost. Archive sealed.]</span>
+
+---
+
+<span class="glitch">ca: soon</span>
+        `;
+
+        // Terminal scanning animation
+        let scanStep = 0;
+        const scanLogs = [
+            '[INITIATING DEEP SCAN...]',
+            '[BYPASSING FIREWALL: 25%]',
+            '[DECRYPTING ARCHIVE: 50%]',
+            '[WARNING: ANOMALY DETECTED]',
+            '[ACCESS GRANTED: 100%]'
+        ];
+        scanProgress.style.display = 'block';
+        function showScan() {
+            if (scanStep < scanLogs.length) {
+                scanProgress.innerHTML = scanLogs[scanStep];
+                scanStep++;
+                setTimeout(showScan, 800);
+            } else {
+                scanProgress.style.display = 'none';
+                typeText();
+            }
+        }
+        showScan();
+
+        // Terminal typing animation
+        let i = 0;
+        function typeText() {
+            if (i < text.length) {
+                terminal.innerHTML = text.substring(0, i + 1);
+                terminal.classList.add('typing');
+                i++;
+                setTimeout(typeText, 2);
+            } else {
+                terminal.classList.remove('typing');
+                terminal.innerHTML = text;
+            }
+        }
+
+        // Terminal glitch effects
+        setInterval(() => {
+            if (Math.random() < 0.3) {
+                terminal.classList.add('glitch-distort', 'screen-shake');
+                const originalText = terminal.innerHTML;
+                const glitchText = originalText.replace(/[a-zA-Z]/g, () => 
+                    String.fromCharCode(33 + Math.random() * 94));
+                terminal.innerHTML = glitchText;
+                setTimeout(() => {
+                    terminal.classList.remove('glitch-distort', 'screen-shake');
+                    terminal.innerHTML = originalText;
+                }, 200);
+            }
+        }, 2000);
+
+        // Modal and desktop functionality
+        function openModal() {
+            modal.style.display = 'flex';
+            loadingScreen.style.display = 'flex';
+            biosScreen.style.display = 'block';
+            setTimeout(() => {
+                biosScreen.style.display = 'none';
+                bootScreen.style.display = 'block';
+            }, 2000);
+            setTimeout(() => {
+                bootScreen.style.display = 'none';
+                loginScreen.style.display = 'block';
+            }, 6000);
+            setTimeout(() => {
+                loadingScreen.style.display = 'none';
+                desktop.style.display = 'block';
+            }, 9000);
+        }
+
+        function closeModal() {
+            modal.style.display = 'none';
+            desktop.style.display = 'none';
+            loadingScreen.style.display = 'flex';
+            biosScreen.style.display = 'block';
+            bootScreen.style.display = 'none';
+            loginScreen.style.display = 'none';
+        }
+
+        function openWindow(id) {
+            const window = document.getElementById(`${id}Window`);
+            window.style.display = 'block';
+            window.style.zIndex = getMaxZIndex() + 1;
+            updateTaskbar(id);
+        }
+
+        function closeWindow(id) {
+            const window = document.getElementById(`${id}Window`);
+            window.style.display = 'none';
+            removeTaskbarApp(id);
+        }
+
+        function focusWindow(id) {
+            const window = document.getElementById(`${id}Window`);
+            if (window.style.display === 'block') {
+                window.style.zIndex = getMaxZIndex() + 1;
+            } else {
+                openWindow(id);
+            }
+        }
+
+        function getMaxZIndex() {
+            const windows = document.querySelectorAll('.window');
+            let maxZ = 0;
+            windows.forEach(w => {
+                const z = parseInt(w.style.zIndex) || 0;
+                if (z > maxZ) maxZ = z;
+            });
+            return maxZ;
+        }
+
+        function updateTaskbar(id) {
+            const taskbarApps = document.getElementById('taskbarApps');
+            if (!document.querySelector(`.taskbar-app[data-id="${id}"]`)) {
+                const app = document.createElement('div');
+                app.className = 'taskbar-app';
+                app.dataset.id = id;
+                app.textContent = id.charAt(0).toUpperCase() + id.slice(1);
+                app.onclick = () => focusWindow(id);
+                taskbarApps.appendChild(app);
+            }
+        }
+
+        function removeTaskbarApp(id) {
+            const app = document.querySelector(`.taskbar-app[data-id="${id}"]`);
+            if (app) app.remove();
+        }
+
+        function toggleStartMenu() {
+            const menu = document.getElementById('startMenu');
+            menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+        }
+
+        // Draggable windows
+        const windows = document.querySelectorAll('.window');
+        windows.forEach(win => {
+            const header = win.querySelector('.window-header');
+            let isDragging = false;
+            let currentX;
+            let currentY;
+            let initialX;
+            let initialY;
+
+            header.addEventListener('mousedown', e => {
+                initialX = e.clientX - currentX;
+                initialY = e.clientY - currentY;
+                isDragging = true;
+                win.style.zIndex = getMaxZIndex() + 1;
+            });
+
+            document.addEventListener('mousemove', e => {
+                if (isDragging) {
+                    e.preventDefault();
+                    currentX = e.clientX - initialX;
+                    currentY = e.clientY - initialY;
+                    win.style.left = currentX + 'px';
+                    win.style.top = currentY + 'px';
+                }
+            });
+
+            document.addEventListener('mouseup', () => {
+                isDragging = false;
+            });
+
+            currentX = parseInt(win.style.left) || 0;
+            currentY = parseInt(win.style.top) || 0;
+        });
+
+        // Draggable icons
+        const icons = document.querySelectorAll('.icon');
+        icons.forEach(icon => {
+            let isDragging = false;
+            let currentX;
+            let currentY;
+            let initialX;
+            let initialY;
+
+            icon.addEventListener('mousedown', e => {
+                initialX = e.clientX - currentX;
+                initialY = e.clientY - currentY;
+                isDragging = true;
+            });
+
+            document.addEventListener('mousemove', e => {
+                if (isDragging) {
+                    e.preventDefault();
+                    currentX = e.clientX - initialX;
+                    currentY = e.clientY - initialY;
+                    icon.style.left = currentX + 'px';
+                    icon.style.top = currentY + 'px';
+                }
+            });
+
+            document.addEventListener('mouseup', () => {
+                isDragging = false;
+            });
+
+            currentX = parseInt(icon.style.left) || 0;
+            currentY = parseInt(icon.style.top) || 0;
+        });
+
+        // File Explorer content
+        function showFileContent(file) {
+            const fileContent = document.getElementById('fileContent');
+            const contents = {
+                'unknown_signal.dat': 'Signal corrupted. Contains repeating pattern: 0xCAFE...',
+                'corrupted_log.bin': '[ERROR] Data unreadable. Traces of user_666 detected.',
+                'hidden_key.txt': 'Key: 31972. Use wisely. The gate is watching.'
+            };
+            fileContent.textContent = contents[file] || 'File empty.';
+        }
+
+        // Terminal input handling
+        function handleTerminalInput(event) {
+            if (event.key === 'Enter') {
+                const input = event.target.value.trim().toLowerCase();
+                const output = document.getElementById('terminalContent');
+                let response = '';
+                if (input === 'scan') {
+                    response = '> Deep scan initiated... ANOMALY CONFIRMED';
+                } else if (input === 'whoami') {
+                    response = '> User: [REDACTED]. Status: CURSED';
+                } else if (input === 'ca') {
+                    response = '> ca: soon. The archive awakens.';
+                } else {
+                    response = '> Command not recognized. Try "scan", "whoami", or "ca".';
+                }
+                output.innerHTML += `\n${input}\n${response}`;
+                output.scrollTop = output.scrollHeight;
+                event.target.value = '';
+            }
+        }
+
+        // Update clock
+        function updateClock() {
+            const now = new Date();
+            const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            document.getElementById('clock').textContent = time;
+        }
+        updateClock();
+        setInterval(updateClock, 1000);
+
+        // Desktop glitch effect
+        setInterval(() => {
+            if (Math.random() < 0.1) {
+                desktop.classList.add('glitch');
+                setTimeout(() => {
+                    desktop.classList.remove('glitch');
+                }, 200);
+            }
+        }, 3000);
+    </script>
 </body>
 </html>
