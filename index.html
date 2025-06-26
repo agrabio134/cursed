@@ -436,7 +436,7 @@
                 <span>Archive Files</span>
             </div>
             <div class="icon" id="terminalIcon" style="top: 320px; left: 20px;" ondblclick="openWindow('terminal')">
-                <img src="terminal.png.crdownload" alt="Terminal">
+                <img src="http://getdrawings.com/free-icon/terminal-icon-53.png" alt="Terminal">
                 <span>Dark Console</span>
             </div>
             <div class="icon" id="recycleIcon" style="top: 20px; right: 20px;" ondblclick="openWindow('recycle')">
@@ -446,6 +446,10 @@
             <div class="icon" id="systemIcon" style="top: 120px; left: 120px;" ondblclick="openWindow('system')">
                 <img src="https://img.icons8.com/ios/64/ffffff/computer.png" alt="System Info">
                 <span>System Info</span>
+            </div>
+            <div class="icon" id="riddleIcon" style="top: 220px; left: 120px;" ondblclick="openWindow('riddle')">
+                <img src="https://img.icons8.com/ios/64/ffffff/puzzle.png" alt="Riddle">
+                <span>Riddle.txt</span>
             </div>
 
             <div class="window" id="fragmentWindow" style="width: 400px; height: 300px; top: 100px; left: 200px;">
@@ -562,6 +566,22 @@ The video—cursed.mp4—don’t watch it twice. The frames shift. Eyes appear. 
                 </div>
             </div>
 
+            <div class="window" id="riddleWindow" style="width: 400px; height: 300px; top: 220px; left: 440px;">
+                <div class="window-header">
+                    <span class="window-title">$CURSED - Riddle.txt</span>
+                    <div class="window-buttons">
+                        <button onclick="closeWindow('riddle')">X</button>
+                    </div>
+                </div>
+                <div class="window-content">
+                    <textarea id="riddleContent" readonly>
+I speak without a mouth and hear without ears. I have no body, but I come alive with the wind. What am I?
+
+[SUBMIT ANSWER IN TERMINAL: Use command "submit <answer>"]
+                    </textarea>
+                </div>
+            </div>
+
             <div class="taskbar">
                 <button class="start-button" onclick="toggleStartMenu()">
                     <img src="start.png" alt="Start">
@@ -584,6 +604,7 @@ The video—cursed.mp4—don’t watch it twice. The frames shift. Eyes appear. 
                     <li onclick="openWindow('terminal')">Dark Console</li>
                     <li onclick="openWindow('recycle')">Recycle Bin</li>
                     <li onclick="openWindow('system')">System Info</li>
+                    <li onclick="openWindow('riddle')">Riddle</li>
                     <li onclick="closeModal()">Shutdown</li>
                 </ul>
             </div>
@@ -849,8 +870,15 @@ The dev is gone. Dev is bot. Dev is dead. Dev is <span class="glitch">CURSED</sp
                     response = '> User: [REDACTED]. Status: CURSED';
                 } else if (input === 'ca') {
                     response = '> ca: 0xb6124ac10570cc481842c9291d05f1b929d86e309cb52c1f3dba0b3397574b47::cursed::CURSED. The archive awakens.';
+                } else if (input.startsWith('submit ')) {
+                    const answer = input.slice(7).trim();
+                    if (answer === 'echo') {
+                        response = '> CORRECT: The answer is "echo". Access granted. [HIDDEN FILE UNLOCKED: secret.txt]';
+                    } else {
+                        response = '> INCORRECT: Try again. The archive is watching.';
+                    }
                 } else {
-                    response = '> Command not recognized. Try "scan", "whoami", or "ca".';
+                    response = '> Command not recognized. Try "scan", "whoami", "ca", or "submit <answer>".';
                 }
                 output.innerHTML += `\n${input}\n${response}`;
                 output.scrollTop = output.scrollHeight;
