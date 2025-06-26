@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="shortcut icon" href="cursed.png" type="image/x-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cursed Archive: Fragment-1721540624-Cursed-Whispers.txt</title>
     <style>
@@ -137,6 +138,8 @@
         .open-computer-container {
             text-align: center;
             margin: 10px 0;
+            border: 2px solid #006600;
+            width: 140px;
         }
         .glitch-distort {
             filter: hue-rotate(90deg) blur(2px);
@@ -379,12 +382,13 @@
     <div class="scanlines"></div>
     <div class="container crt-flicker">
         <h1>Cursed Archive: Fragment-1721540624-Cursed-Whispers.txt</h1>
-        <div class="terminal" id="terminal">
-            <div class="scan-progress" id="scanProgress"></div>
-        </div>
         <div class="open-computer-container">
             <span class="open-computer" onclick="openModal()">Open Computer</span>
         </div>
+        <div class="terminal" id="terminal">
+            <div class="scan-progress" id="scanProgress"></div>
+        </div>
+
         <div class="video-container">
             <video autoplay loop muted playsinline>
                 <source src="cursed.mp4" type="video/mp4">
@@ -432,10 +436,10 @@
                 <span>Archive Files</span>
             </div>
             <div class="icon" id="terminalIcon" style="top: 320px; left: 20px;" ondblclick="openWindow('terminal')">
-                <img src="https://brandslogos.com/wp-content/uploads/images/large/terminal-logo.png" alt="Terminal">
+                <img src="terminal.png.crdownload" alt="Terminal">
                 <span>Dark Console</span>
             </div>
-            <div class="icon" id="recycleIcon" style="top: 20px; left: 120px;" ondblclick="openWindow('recycle')">
+            <div class="icon" id="recycleIcon" style="top: 20px; right: 20px;" ondblclick="openWindow('recycle')">
                 <img src="https://img.icons8.com/ios/64/ffffff/recycle-bin.png" alt="Recycle Bin">
                 <span>Recycle Bin</span>
             </div>
@@ -560,7 +564,7 @@ The video—cursed.mp4—don’t watch it twice. The frames shift. Eyes appear. 
 
             <div class="taskbar">
                 <button class="start-button" onclick="toggleStartMenu()">
-                    <img src="https://img.icons8.com/ios/16/ffffff/windows.png" alt="Start">
+                    <img src="start.png" alt="Start">
                     Start
                 </button>
                 <div class="taskbar-apps" id="taskbarApps">
@@ -569,7 +573,7 @@ The video—cursed.mp4—don’t watch it twice. The frames shift. Eyes appear. 
                 </div>
                 <div class="system-tray">
                     <img class="tray-icon" src="https://img.icons8.com/ios/16/ffffff/wifi.png" alt="WiFi">
-                    <img class="tray-icon" src="https://img.icons8.com/ios/16/ffffff/volume-up.png" alt="Volume">
+                    <img class="tray-icon" src="https://cdn-icons-png.freepik.com/512/25/25695.png" alt="Volume">
                     <span class="clock" id="clock"></span>
                 </div>
             </div>
