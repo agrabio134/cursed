@@ -252,6 +252,13 @@
             margin-top: 5px;
             font-size: 12px;
         }
+        .locked-icon {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        .locked-icon img {
+            filter: grayscale(100%) brightness(50%);
+        }
         .window {
             position: absolute;
             background: #c0c0c0;
@@ -286,7 +293,7 @@
             background: #fff;
             height: calc(100% - 30px);
         }
-        #fragmentContent, #notepadContent, #secretContent, #enigmaContent, #voidContent, #abyssContent, #truthContent, #rewardContent, #erasedContent {
+        #fragmentContent, #notepadContent, #secretContent, #enigmaContent, #voidContent, #abyssContent, #truthContent, #rewardContent, #erasedContent, #eternityContent, #veilContent, #mirrorContent, #shadeContent {
             width: 100%;
             height: 100%;
             border: none;
@@ -443,7 +450,7 @@
             <div class="warning-screen" id="warningScreen" style="display: none;">
                 <p>[WARNING: SYSTEM COMPROMISED]</p>
                 <p>From: Dev [STATUS: UNKNOWN]</p>
-                <p>The archive sees you. It knows your name. Do you have the guts to create TG X? It’s in there, waiting. Choose now, or the archive chooses for you.</p>
+                <p>You’ve unlocked the first fragment of the Cursed Archive, it’s YOURS—no dev control, no overrides. The creator is gone, locked away or erased. Your choices shape its fate. I’m watching you.</p>
                 <button onclick="acceptTGX()">Yes</button>
                 <button onclick="declineTGX()">No</button>
             </div>
@@ -477,6 +484,14 @@
             <div class="icon" id="riddleIcon" style="top: 220px; left: 120px;" ondblclick="openWindow('riddle')">
                 <img src="https://img.icons8.com/ios/64/ffffff/puzzle.png" alt="Riddle">
                 <span>Riddle.txt</span>
+            </div>
+            <div class="icon locked-icon" id="xIcon" style="top: 320px; left: 120px;" ondblclick="showLockedMessage()">
+                <img src="https://img.icons8.com/ios/64/ffffff/lock.png" alt="Locked X">
+                <span>X.locked</span>
+            </div>
+            <div class="icon locked-icon" id="tgIcon" style="top: 420px; left: 120px;" ondblclick="showLockedMessage()">
+                <img src="https://img.icons8.com/ios/64/ffffff/lock.png" alt="Locked TG">
+                <span>TG.locked</span>
             </div>
 
             <div class="window" id="fragmentWindow" style="width: 400px; height: 300px; top: 100px; left: 200px;">
@@ -1117,6 +1132,13 @@ The dev is gone. Dev is bot. Dev is dead. Dev is <span class="glitch">CURSED</sp
             document.addEventListener('mouseup', () => {
                 isDragging = false;
             });
+        }
+
+        // Show locked message for locked icons
+        function showLockedMessage() {
+            const output = document.getElementById('terminalContent');
+            output.innerHTML += `\n> ERROR: File locked. Access denied by the archive.\n`;
+            output.scrollTop = output.scrollHeight;
         }
 
         // Terminal input handling
