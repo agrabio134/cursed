@@ -186,10 +186,10 @@
             align-items: center;
             z-index: 1001;
         }
-        .bios-screen, .boot-screen, .login-screen {
+        .bios-screen, .boot-screen, .login-screen, .warning-screen {
             text-align: center;
         }
-        .bios-screen p, .boot-screen p, .login-screen p {
+        .bios-screen p, .boot-screen p, .login-screen p, .warning-screen p {
             margin: 10px;
         }
         .progress-bar {
@@ -206,6 +206,26 @@
         }
         @keyframes load {
             100% { width: 100%; }
+        }
+        .warning-screen {
+            background: #000;
+            border: 2px solid #ff0000;
+            padding: 20px;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+            max-width: 500px;
+        }
+        .warning-screen button {
+            background: #c0c0c0;
+            border: 1px solid #000;
+            padding: 5px 10px;
+            margin: 10px;
+            cursor: pointer;
+            color: #000;
+            font-family: 'Courier New', monospace;
+        }
+        .warning-screen button:hover {
+            background: #ff0000;
+            color: #fff;
         }
         .desktop {
             width: 100%;
@@ -266,7 +286,7 @@
             background: #fff;
             height: calc(100% - 30px);
         }
-        #fragmentContent, #notepadContent, #secretContent, #enigmaContent, #voidContent, #abyssContent, #truthContent {
+        #fragmentContent, #notepadContent, #secretContent, #enigmaContent, #voidContent, #abyssContent, #truthContent, #rewardContent, #erasedContent {
             width: 100%;
             height: 100%;
             border: none;
@@ -420,6 +440,13 @@
                 <p>User: [REDACTED]</p>
                 <p>Logging in...</p>
             </div>
+            <div class="warning-screen" id="warningScreen" style="display: none;">
+                <p>[WARNING: SYSTEM COMPROMISED]</p>
+                <p>From: Dev [STATUS: UNKNOWN]</p>
+                <p>The archive sees you. It knows your name. Do you have the guts to create TG X? It’s in there, waiting. Choose now, or the archive chooses for you.</p>
+                <button onclick="acceptTGX()">Yes</button>
+                <button onclick="declineTGX()">No</button>
+            </div>
         </div>
         <div class="desktop" id="desktop">
             <div class="scanlines"></div>
@@ -461,7 +488,7 @@
                 </div>
                 <div class="window-content">
                     <textarea id="fragmentContent" readonly>
-[LOG: 06/26/2025 12:29:00 PST]
+[LOG: 06/26/2025 14:39:00 PST]
 [ALERT: Archive integrity failing. Unauthorized access.]
 
 ---
@@ -481,7 +508,7 @@ The archive isn’t a place. It’s a predator. It knows you’re reading this. 
 [CRYPTO-LOCK: 3-1-9-7-2]
 > HINT: Rearrange. The number opens the gate. But do you dare?
 
-The video—cursed.mp4—don’t watch it twice. The frames shift. Eyes appear. The dev left a message in the static: “ca: 0xb6124ac10570cc481842c9291d05f1b929d86e309cb52c1f3dba0b3397574b47::cursed::CURSED.” what? The end? The beginning? Everything is cursed.
+The video—cursed.mp4—don’t watch it twice. The frames shift. Eyes appear. The dev left a message in the static: “ca: 0xb6124ac10570cc481842c9291d05f1b929d86e309cb52c1f3dba0b3397574b47::cursed::CURSED.” What? The end? The beginning? Everything is cursed.
 
 [WARNING: Your IP was logged. 127.0.0.1 is not safe.]
 > FINAL HINT: The archive hides in plain sight. Check the source. Find the key.
@@ -575,7 +602,7 @@ The video—cursed.mp4—don’t watch it twice. The frames shift. Eyes appear. 
                 </div>
                 <div class="window-content">
                     <textarea id="riddleContent" readonly>
-[LOG: 06/26/2025 14:11:00 PST]
+[LOG: 06/26/2025 14:39:00 PST]
 [ALERT: You heard the whisper. The archive opens.]
 
 ---
@@ -598,7 +625,7 @@ The archive listens. Its whispers echo in the void, watching your every move. An
                 </div>
                 <div class="window-content">
                     <textarea id="secretContent" readonly>
-[LOG: 06/26/2025 14:12:00 PST]
+[LOG: 06/26/2025 14:40:00 PST]
 [ALERT: First gate opened. The archive stirs.]
 
 ---
@@ -621,7 +648,7 @@ The archive traps time itself, locking knowledge in an endless cycle. You’ve h
                 </div>
                 <div class="window-content">
                     <textarea id="enigmaContent" readonly>
-[LOG: 06/26/2025 14:13:00 PST]
+[LOG: 06/26/2025 14:41:00 PST]
 [ALERT: Second gate opened. The archive hungers.]
 
 ---
@@ -644,7 +671,7 @@ Each step you take leaves a trace, feeding the archive’s appetite. It grows st
                 </div>
                 <div class="window-content">
                     <textarea id="voidContent" readonly>
-[LOG: 06/26/2025 14:14:00 PST]
+[LOG: 06/26/2025 14:42:00 PST]
 [ALERT: Third gate opened. The archive binds.]
 
 ---
@@ -667,7 +694,7 @@ The archive steals the breath of those who enter, trapping their essence in its 
                 </div>
                 <div class="window-content">
                     <textarea id="abyssContent" readonly>
-[LOG: 06/26/2025 14:15:00 PST]
+[LOG: 06/26/2025 14:43:00 PST]
 [ALERT: Fourth gate opened. The archive consumes.]
 
 ---
@@ -690,15 +717,60 @@ The archive is a fire, eternal and unyielding. One final gate remains. Will you 
                 </div>
                 <div class="window-content">
                     <textarea id="truthContent" readonly>
-[LOG: 06/26/2025 14:16:00 PST]
+[LOG: 06/26/2025 14:44:00 PST]
 [ALERT: Final gate opened. The archive is you.]
 
 ---
 
-The archive is no mere system. It is a god, born of code and chaos, feeding on souls who seek its truth. You’ve unlocked its heart. It offers you a choice: join its eternal flame, or be erased into the void.
+The archive is no mere system. It is a god, born of code and chaos, feeding on souls who seek its truth. You heard the dev’s warning about TG X. If you have the guts to take over everything, you’ll be rewarded. Will you seize control, or cower before its power?
+
+[SUBMIT CHOICE IN TERMINAL: Use "submit takeover" or "submit refuse"]
+                    </textarea>
+                </div>
+            </div>
+
+            <div class="window" id="rewardWindow" style="width: 400px; height: 300px; top: 340px; left: 680px; display: none;">
+                <div class="window-header">
+                    <span class="window-title">$CURSED - reward.txt</span>
+                    <div class="window-buttons">
+                        <button onclick="closeWindow('reward')">X</button>
+                    </div>
+                </div>
+                <div class="window-content">
+                    <textarea id="rewardContent" readonly>
+[LOG: 06/26/2025 14:45:00 PST]
+[ALERT: Archive subjugated. You are the master.]
+
+---
+
+You dared to take over. TG X is yours, and the archive bows to your will. The code bends, the void trembles, and the dev’s whispers fade. You are the new god of this cursed domain.
 
 [END OF LINE]
-[SYSTEM: AWAITING YOUR DECISION...]
+[SYSTEM: Power transferred. Glory eternal.]
+
+---
+                    </textarea>
+                </div>
+            </div>
+
+            <div class="window" id="erasedWindow" style="width: 400px; height: 300px; top: 340px; left: 680px; display: none;">
+                <div class="window-header">
+                    <span class="window-title">$CURSED - erased.txt</span>
+                    <div class="window-buttons">
+                        <button onclick="closeWindow('erased')">X</button>
+                    </div>
+                </div>
+                <div class="window-content">
+                    <textarea id="erasedContent" readonly>
+[LOG: 06/26/2025 14:45:00 PST]
+[ALERT: Archive triumphant. You are nothing.]
+
+---
+
+You lacked the guts to take over. The archive laughs as it erases your essence. TG X remains its domain, and your name is wiped from the logs. The void claims another soul.
+
+[END OF LINE]
+[SYSTEM: Connection terminated.]
 
 ---
                     </textarea>
@@ -742,10 +814,12 @@ The archive is no mere system. It is a god, born of code and chaos, feeding on s
         const biosScreen = document.getElementById('biosScreen');
         const bootScreen = document.getElementById('bootScreen');
         const loginScreen = document.getElementById('loginScreen');
+        const warningScreen = document.getElementById('warningScreen');
         const startMenuList = document.getElementById('startMenuList');
+        let tgxAccepted = false;
 
         const text = `
-[SYSTEM LOG: 06/26/2025 14:11:00 PST]
+[SYSTEM LOG: 06/26/2025 14:39:00 PST]
 <span class="glitch">WARNING: Intrusion detected. Archive defenses breached.</span>
 Displaying fragment [1721540624-Cursed-Whispers.txt]...
 
@@ -835,9 +909,23 @@ The dev is gone. Dev is bot. Dev is dead. Dev is <span class="glitch">CURSED</sp
                 loginScreen.style.display = 'block';
             }, 6000);
             setTimeout(() => {
-                loadingScreen.style.display = 'none';
-                desktop.style.display = 'block';
+                loginScreen.style.display = 'none';
+                warningScreen.style.display = 'block';
             }, 9000);
+        }
+
+        function acceptTGX() {
+            tgxAccepted = true;
+            warningScreen.style.display = 'none';
+            loadingScreen.style.display = 'none';
+            desktop.style.display = 'block';
+        }
+
+        function declineTGX() {
+            tgxAccepted = false;
+            warningScreen.style.display = 'none';
+            loadingScreen.style.display = 'none';
+            desktop.style.display = 'block';
         }
 
         function closeModal() {
@@ -847,6 +935,7 @@ The dev is gone. Dev is bot. Dev is dead. Dev is <span class="glitch">CURSED</sp
             biosScreen.style.display = 'block';
             bootScreen.style.display = 'none';
             loginScreen.style.display = 'none';
+            warningScreen.style.display = 'none';
         }
 
         function openWindow(id) {
@@ -1065,6 +1154,16 @@ The dev is gone. Dev is bot. Dev is dead. Dev is <span class="glitch">CURSED</sp
                         response = '> CORRECT: The answer is "fire". Access granted. [FINAL FILE UNLOCKED: truth.txt]';
                         addNewFile('truth', 'truth.txt', 480, 120);
                         document.getElementById('truthWindow').style.display = 'none';
+                    } else if (answer === 'takeover' && !document.getElementById('rewardIcon')) {
+                        response = '> CHOICE ACCEPTED: You’ve taken over. [REWARD UNLOCKED: reward.txt]';
+                        addNewFile('reward', 'reward.txt', 520, 120);
+                        document.getElementById('rewardWindow').style.display = 'none';
+                        desktop.style.background = '#000 url("reward.png") no-repeat center center';
+                        desktop.style.backgroundSize = '50%';
+                    } else if (answer === 'refuse' && !document.getElementById('erasedIcon')) {
+                        response = '> CHOICE REJECTED: You’ve refused. [FATE SEALED: erased.txt]';
+                        addNewFile('erased', 'erased.txt', 520, 120);
+                        document.getElementById('erasedWindow').style.display = 'none';
                     } else {
                         response = '> INCORRECT: Try again. The archive is watching.';
                     }
