@@ -266,7 +266,7 @@
             background: #fff;
             height: calc(100% - 30px);
         }
-        #fragmentContent, #notepadContent {
+        #fragmentContent, #notepadContent, #secretContent, #enigmaContent, #voidContent, #abyssContent, #truthContent {
             width: 100%;
             height: 100%;
             border: none;
@@ -575,9 +575,132 @@ The video—cursed.mp4—don’t watch it twice. The frames shift. Eyes appear. 
                 </div>
                 <div class="window-content">
                     <textarea id="riddleContent" readonly>
+[LOG: 06/26/2025 14:11:00 PST]
+[ALERT: You heard the whisper. The archive opens.]
+
+---
+
 I speak without a mouth and hear without ears. I have no body, but I come alive with the wind. What am I?
 
+The archive listens. Its whispers echo in the void, watching your every move. Answer correctly, and it may reveal its secrets. Answer wrong, and it claims you.
+
 [SUBMIT ANSWER IN TERMINAL: Use command "submit <answer>"]
+                    </textarea>
+                </div>
+            </div>
+
+            <div class="window" id="secretWindow" style="width: 400px; height: 300px; top: 240px; left: 480px; display: none;">
+                <div class="window-header">
+                    <span class="window-title">$CURSED - secret.txt</span>
+                    <div class="window-buttons">
+                        <button onclick="closeWindow('secret')">X</button>
+                    </div>
+                </div>
+                <div class="window-content">
+                    <textarea id="secretContent" readonly>
+[LOG: 06/26/2025 14:12:00 PST]
+[ALERT: First gate opened. The archive stirs.]
+
+---
+
+I am taken from a mine and shut up in a wooden case, from which I am never released, and yet I am used by almost every person. What am I?
+
+The archive traps time itself, locking knowledge in an endless cycle. You’ve heard its echo, but can you escape its grasp? The next gate awaits.
+
+[SUBMIT ANSWER IN TERMINAL: Use command "submit <answer>"]
+                    </textarea>
+                </div>
+            </div>
+
+            <div class="window" id="enigmaWindow" style="width: 400px; height: 300px; top: 260px; left: 520px; display: none;">
+                <div class="window-header">
+                    <span class="window-title">$CURSED - enigma.txt</span>
+                    <div class="window-buttons">
+                        <button onclick="closeWindow('enigma')">X</button>
+                    </div>
+                </div>
+                <div class="window-content">
+                    <textarea id="enigmaContent" readonly>
+[LOG: 06/26/2025 14:13:00 PST]
+[ALERT: Second gate opened. The archive hungers.]
+
+---
+
+The more you take, the more you leave behind. What am I?
+
+Each step you take leaves a trace, feeding the archive’s appetite. It grows stronger with your secrets. Dare you proceed deeper?
+
+[SUBMIT ANSWER IN TERMINAL: Use command "submit <answer>"]
+                    </textarea>
+                </div>
+            </div>
+
+            <div class="window" id="voidWindow" style="width: 400px; height: 300px; top: 280px; left: 560px; display: none;">
+                <div class="window-header">
+                    <span class="window-title">$CURSED - void.txt</span>
+                    <div class="window-buttons">
+                        <button onclick="closeWindow('void')">X</button>
+                    </div>
+                </div>
+                <div class="window-content">
+                    <textarea id="voidContent" readonly>
+[LOG: 06/26/2025 14:14:00 PST]
+[ALERT: Third gate opened. The archive binds.]
+
+---
+
+I am light as a feather, yet the strongest man cannot hold me for long. What am I?
+
+The archive steals the breath of those who enter, trapping their essence in its depths. You’re close to its heart—too close.
+
+[SUBMIT ANSWER IN TERMINAL: Use command "submit <answer>"]
+                    </textarea>
+                </div>
+            </div>
+
+            <div class="window" id="abyssWindow" style="width: 400px; height: 300px; top: 300px; left: 600px; display: none;">
+                <div class="window-header">
+                    <span class="window-title">$CURSED - abyss.txt</span>
+                    <div class="window-buttons">
+                        <button onclick="closeWindow('abyss')">X</button>
+                    </div>
+                </div>
+                <div class="window-content">
+                    <textarea id="abyssContent" readonly>
+[LOG: 06/26/2025 14:15:00 PST]
+[ALERT: Fourth gate opened. The archive consumes.]
+
+---
+
+I am not alive, but I grow; I don't have lungs, but I need air; I don't have a mouth, but water kills me. What am I?
+
+The archive is a fire, eternal and unyielding. One final gate remains. Will you join it, or be erased?
+
+[SUBMIT ANSWER IN TERMINAL: Use command "submit <answer>"]
+                    </textarea>
+                </div>
+            </div>
+
+            <div class="window" id="truthWindow" style="width: 400px; height: 300px; top: 320px; left: 640px; display: none;">
+                <div class="window-header">
+                    <span class="window-title">$CURSED - truth.txt</span>
+                    <div class="window-buttons">
+                        <button onclick="closeWindow('truth')">X</button>
+                    </div>
+                </div>
+                <div class="window-content">
+                    <textarea id="truthContent" readonly>
+[LOG: 06/26/2025 14:16:00 PST]
+[ALERT: Final gate opened. The archive is you.]
+
+---
+
+The archive is no mere system. It is a god, born of code and chaos, feeding on souls who seek its truth. You’ve unlocked its heart. It offers you a choice: join its eternal flame, or be erased into the void.
+
+[END OF LINE]
+[SYSTEM: AWAITING YOUR DECISION...]
+
+---
                     </textarea>
                 </div>
             </div>
@@ -598,7 +721,7 @@ I speak without a mouth and hear without ears. I have no body, but I come alive 
                 </div>
             </div>
             <div class="start-menu" id="startMenu">
-                <ul>
+                <ul id="startMenuList">
                     <li onclick="openWindow('notepad')">Cursed Notes</li>
                     <li onclick="openWindow('explorer')">Archive Files</li>
                     <li onclick="openWindow('terminal')">Dark Console</li>
@@ -619,9 +742,10 @@ I speak without a mouth and hear without ears. I have no body, but I come alive 
         const biosScreen = document.getElementById('biosScreen');
         const bootScreen = document.getElementById('bootScreen');
         const loginScreen = document.getElementById('loginScreen');
+        const startMenuList = document.getElementById('startMenuList');
 
         const text = `
-[SYSTEM LOG: 06/26/2025 12:29:00 PST]
+[SYSTEM LOG: 06/26/2025 14:11:00 PST]
 <span class="glitch">WARNING: Intrusion detected. Archive defenses breached.</span>
 Displaying fragment [1721540624-Cursed-Whispers.txt]...
 
@@ -858,12 +982,61 @@ The dev is gone. Dev is bot. Dev is dead. Dev is <span class="glitch">CURSED</sp
             fileContent.textContent = contents[file] || 'File empty.';
         }
 
+        // Add new file to desktop and start menu
+        function addNewFile(id, title, top, left) {
+            // Add desktop icon
+            const icon = document.createElement('div');
+            icon.className = 'icon';
+            icon.id = `${id}Icon`;
+            icon.style.top = `${top}px`;
+            icon.style.left = `${left}px`;
+            icon.ondblclick = () => openWindow(id);
+            icon.innerHTML = `
+                <img src="https://img.icons8.com/ios/64/ffffff/txt.png" alt="${title}">
+                <span>${title}</span>
+            `;
+            desktop.appendChild(icon);
+
+            // Add to start menu
+            const menuItem = document.createElement('li');
+            menuItem.onclick = () => openWindow(id);
+            menuItem.textContent = title.replace('.txt', '');
+            startMenuList.insertBefore(menuItem, startMenuList.lastElementChild);
+
+            // Make icon draggable
+            let isDragging = false;
+            let currentX = left;
+            let currentY = top;
+            let initialX, initialY;
+
+            icon.addEventListener('mousedown', e => {
+                initialX = e.clientX - currentX;
+                initialY = e.clientY - currentY;
+                isDragging = true;
+            });
+
+            document.addEventListener('mousemove', e => {
+                if (isDragging) {
+                    e.preventDefault();
+                    currentX = e.clientX - initialX;
+                    currentY = e.clientY - initialY;
+                    icon.style.left = currentX + 'px';
+                    icon.style.top = currentY + 'px';
+                }
+            });
+
+            document.addEventListener('mouseup', () => {
+                isDragging = false;
+            });
+        }
+
         // Terminal input handling
         function handleTerminalInput(event) {
             if (event.key === 'Enter') {
                 const input = event.target.value.trim().toLowerCase();
                 const output = document.getElementById('terminalContent');
                 let response = '';
+
                 if (input === 'scan') {
                     response = '> Deep scan initiated... ANOMALY CONFIRMED';
                 } else if (input === 'whoami') {
@@ -872,8 +1045,26 @@ The dev is gone. Dev is bot. Dev is dead. Dev is <span class="glitch">CURSED</sp
                     response = '> ca: 0xb6124ac10570cc481842c9291d05f1b929d86e309cb52c1f3dba0b3397574b47::cursed::CURSED. The archive awakens.';
                 } else if (input.startsWith('submit ')) {
                     const answer = input.slice(7).trim();
-                    if (answer === 'echo') {
+                    if (answer === 'echo' && !document.getElementById('secretIcon')) {
                         response = '> CORRECT: The answer is "echo". Access granted. [HIDDEN FILE UNLOCKED: secret.txt]';
+                        addNewFile('secret', 'secret.txt', 320, 120);
+                        document.getElementById('secretWindow').style.display = 'none';
+                    } else if (answer === 'pencil' && !document.getElementById('enigmaIcon')) {
+                        response = '> CORRECT: The answer is "pencil". Access granted. [HIDDEN FILE UNLOCKED: enigma.txt]';
+                        addNewFile('enigma', 'enigma.txt', 360, 120);
+                        document.getElementById('enigmaWindow').style.display = 'none';
+                    } else if (answer === 'footprint' && !document.getElementById('voidIcon')) {
+                        response = '> CORRECT: The answer is "footprint". Access granted. [HIDDEN FILE UNLOCKED: void.txt]';
+                        addNewFile('void', 'void.txt', 400, 120);
+                        document.getElementById('voidWindow').style.display = 'none';
+                    } else if (answer === 'breath' && !document.getElementById('abyssIcon')) {
+                        response = '> CORRECT: The answer is "breath". Access granted. [HIDDEN FILE UNLOCKED: abyss.txt]';
+                        addNewFile('abyss', 'abyss.txt', 440, 120);
+                        document.getElementById('abyssWindow').style.display = 'none';
+                    } else if (answer === 'fire' && !document.getElementById('truthIcon')) {
+                        response = '> CORRECT: The answer is "fire". Access granted. [FINAL FILE UNLOCKED: truth.txt]';
+                        addNewFile('truth', 'truth.txt', 480, 120);
+                        document.getElementById('truthWindow').style.display = 'none';
                     } else {
                         response = '> INCORRECT: Try again. The archive is watching.';
                     }
