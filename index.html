@@ -1,195 +1,286 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <link rel="shortcut icon" href="cursed.png" type="image/x-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cursed Archive: Fragment-1721540624-Cursed-Whispers.txt</title>
+    <title>AURA SUI</title>
     <style>
         body {
-            background-color: #000;
-            color: #00ff00;
-            font-family: 'Courier New', Courier, monospace;
             margin: 0;
-            padding: 20px;
-            line-height: 1.6;
+            font-family: 'Roboto Mono', monospace;
+            background: linear-gradient(180deg, #0d1b2a, #1b263b);
+            color: #e0e0e0;
             overflow-x: hidden;
-            position: relative;
         }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background-color: rgba(0, 10, 0, 0.9);
-            padding: 20px;
-            border: 2px solid #003300;
-            box-shadow: 0 0 20px rgba(0, 255, 0, 0.4);
-            position: relative;
-            z-index: 1;
-        }
-        .scanlines {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: repeating-linear-gradient(
-                to bottom,
-                transparent,
-                transparent 2px,
-                rgba(0, 0, 0, 0.15) 2px,
-                rgba(0, 0, 0, 0.15) 4px
-            );
-            pointer-events: none;
-            z-index: 10;
-        }
-        h1 {
-            color: #ff0000;
-            font-size: 1.5em;
-            text-align: center;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            text-shadow: 0 0 8px #ff0000;
-            animation: pulse 2s infinite;
-        }
-        @keyframes pulse {
-            0% { text-shadow: 0 0 8px #ff0000; }
-            50% { text-shadow: 0 0 12px #ff0000; }
-            100% { text-shadow: 0 0 8px #ff0000; }
-        }
-        .terminal {
-            background-color: #000;
-            padding: 15px;
-            border: 1px solid #003300;
-            white-space: pre-wrap;
-            font-size: 0.9em;
-            color: #00ff00;
-            min-height: 300px;
-        }
-        .terminal::before {
-            content: ">>> Accessing Cursed Archive... [Fragment-1721540624-Cursed-Whispers.txt]";
-            color: #ff0000;
-            display: block;
-            margin-bottom: 10px;
-            text-shadow: 0 0 5px #ff0000;
-        }
-        .glitch {
-            color: #ff0000;
-            position: relative;
-            animation: glitch 0.3s infinite alternate;
-        }
-        @keyframes glitch {
-            0% { transform: translate(0); opacity: 1; }
-            50% { transform: translate(3px, -3px); opacity: 0.6; }
-            100% { transform: translate(-3px, 3px); opacity: 0.8; }
-        }
-        .typing {
-            border-right: 2px solid #00ff00;
-            animation: blink 0.5s step-end infinite;
-        }
-        @keyframes blink {
-            50% { border-color: transparent; }
-        }
-        .scan-progress {
-            color: #00ff00;
-            margin-bottom: 10px;
-            display: none;
-        }
-        .hint:hover {
-            color: #ff0000;
-            cursor: pointer;
-            animation: shake 0.1s infinite;
-        }
-        @keyframes shake {
-            0% { transform: translate(0); }
-            50% { transform: translate(1px, -1px); }
-            100% { transform: translate(-1px, 1px); }
-        }
-        a, .open-computer {
-            color: #ff0000;
-            text-decoration: none;
-            text-shadow: 0 0 3px #ff0000;
-            cursor: pointer;
-        }
-        a:hover, .open-computer:hover {
-            text-decoration: underline;
-            animation: flicker 0.1s infinite;
-        }
-        @keyframes flicker {
-            0% { opacity: 1; }
-            50% { opacity: 0.5; }
-            100% { opacity: 1; }
-        }
-        .footer {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 0.8em;
-            color: #006600;
-        }
-        .video-container {
-            margin: 20px 0;
-            text-align: center;
-        }
-        video {
-            max-width: 100%;
-            border: 2px solid #003300;
-            box-shadow: 0 0 15px rgba(0, 255, 0, 0.4);
-            filter: contrast(1.3);
-        }
-        .open-computer-container {
-            text-align: center;
-            margin: 10px 0;
-            border: 2px solid #006600;
-            width: 140px;
-        }
-        .glitch-distort {
-            filter: hue-rotate(90deg) blur(2px);
-        }
-        .screen-shake {
-            animation: shake-screen 0.1s;
-        }
-        @keyframes shake-screen {
-            0% { transform: translate(0); }
-            25% { transform: translate(2px, -2px); }
-            50% { transform: translate(-2px, 2px); }
-            75% { transform: translate(2px, 2px); }
-            100% { transform: translate(0); }
-        }
-        .modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: #000;
-            z-index: 1000;
-            display: none;
+
+        .landing-page {
+            min-height: 100vh;
+            display: flex;
             flex-direction: column;
-            animation: tv-on 1s forwards;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 80px 20px;
+            position: relative;
+            overflow: hidden;
         }
-        @keyframes tv-on {
-            0% { filter: brightness(0) blur(10px); }
-            50% { filter: brightness(0.5) blur(5px); }
-            100% { filter: brightness(1) blur(0); }
-        }
-        .loading-screen {
+
+        .landing-page::before {
+            content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
+            background: radial-gradient(circle, rgba(100, 149, 237, 0.4), transparent);
+            z-index: 0;
+            animation: pulse 5s infinite ease-in-out;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.3;
+            }
+
+            50% {
+                transform: scale(1.5);
+                opacity: 0.5;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 0.3;
+            }
+        }
+
+        .circuit-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/circuit-board.png');
+            opacity: 0.15;
+            z-index: 0;
+            animation: slideCircuit 15s linear infinite;
+        }
+
+        @keyframes slideCircuit {
+            0% {
+                background-position: 0 0;
+            }
+
+            100% {
+                background-position: 300px 300px;
+            }
+        }
+
+        .ascii-art {
+            font-family: 'Courier New', monospace;
+            font-size: 1.2em;
+            color: #64b5f6;
+            text-shadow: 0 0 10px rgba(100, 149, 237, 0.8);
+            white-space: pre;
+            margin: 20px 0;
+            animation: flicker 3s infinite;
+        }
+
+        @keyframes flicker {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.8;
+            }
+        }
+
+        .terminal {
+            background: #1c2526;
+            border: 2px solid #64b5f6;
+            border-radius: 10px;
+            padding: 20px;
+            max-width: 800px;
+            width: 90%;
+            text-align: left;
+            color: #e0e0e0;
+            font-size: 1em;
+            line-height: 1.6;
+            box-shadow: 0 0 20px rgba(100, 149, 237, 0.5);
+            z-index: 1;
+            margin: 20px 0;
+        }
+
+        .terminal h2 {
+            color: #81c784;
+            margin: 0 0 15px;
+            font-size: 1.4em;
+            text-shadow: 0 0 8px rgba(129, 199, 132, 0.7);
+        }
+
+        .terminal p {
+            margin: 10px 0;
+        }
+
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .feature {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid rgba(100, 149, 237, 0.2);
+        }
+
+        .feature h3 {
+            margin: 0 0 10px;
+            color: #81c784;
+            font-size: 1.2em;
+        }
+
+        .feature p {
+            font-size: 0.9em;
+            color: #b0bec5;
+        }
+
+        .coming-soon {
+            font-size: 1.3em;
+            color: #ffd54f;
+            margin: 20px 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            animation: blink 1.3s infinite;
+        }
+
+        @keyframes blink {
+            50% {
+                opacity: 0.7;
+            }
+        }
+
+        .grab-button,
+        .game-button {
+            background: linear-gradient(45deg, #64b5f6, #81c784, #ffd54f);
+            color: #fff;
+            padding: 18px 55px;
+            font-size: 1.5em;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(100, 149, 237, 0.6);
+            transition: transform 0.3s, box-shadow 0.3s;
+            z-index: 1;
+            position: relative;
+            overflow: hidden;
+            margin: 10px 0;
+            border: 2px solid #006600;
+            width: 140px;
+        }
+
+        .game-button {
+            background: linear-gradient(45deg, #ef5350, #ffd54f, #81c784);
+        }
+
+        .grab-button::before,
+        .game-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: 0.5s;
+        }
+
+        .grab-button:hover::before,
+        .game-button:hover::before {
+            left: 100%;
+        }
+
+        .grab-button:hover,
+        .game-button:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 35px rgba(100, 149, 237, 0.8);
+        }
+
+        .aura-particle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #81c784;
+            border-radius: 50%;
+            box-shadow: 0 0 8px rgba(129, 199, 132, 0.8);
+            animation: float 4s infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0);
+                opacity: 0.7;
+            }
+
+            50% {
+                transform: translateY(-80px);
+                opacity: 0.3;
+            }
+
+            100% {
+                transform: translateY(0);
+                opacity: 0.7;
+            }
+        }
+
+        .phone {
+            width: 360px;
+            height: 760px;
+            background: #000;
+            border-radius: 30px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            position: relative;
+            border: 8px solid #111;
+            display: none;
+            margin: 20px auto;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            0% {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .status-bar {
+            height: 24px;
             background: #000;
             color: #fff;
-            font-family: 'Courier New', Courier, monospace;
+            font-family: 'Courier New', monospace;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 1001;
+            justify-content: space-between;
+            padding: 15px;
+            position: relative;
         }
-        .bios-screen, .boot-screen, .login-screen, .warning-screen {
+        .bios-screen, .boot-screen, .login-screen {
             text-align: center;
         }
-        .bios-screen p, .boot-screen p, .login-screen p, .warning-screen p {
+        .bios-screen p, .boot-screen p, .login-screen p {
             margin: 10px;
         }
         .progress-bar {
@@ -198,34 +289,13 @@
             border: 1px solid #fff;
             margin: 20px auto;
         }
-        .progress {
-            width: 0;
-            height: 100%;
-            background: #00ff00;
-            animation: load 3s forwards;
-        }
-        @keyframes load {
-            100% { width: 100%; }
-        }
-        .warning-screen {
-            background: #000;
-            border: 2px solid #ff0000;
-            padding: 20px;
-            box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
-            max-width: 500px;
-        }
-        .warning-screen button {
-            background: #c0c0c0;
-            border: 1px solid #000;
-            padding: 5px 10px;
-            margin: 10px;
-            cursor: pointer;
-            color: #000;
-            font-family: 'Courier New', monospace;
-        }
-        .warning-screen button:hover {
-            background: #ff0000;
-            color: #fff;
+
+        .app-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            padding: 0 10px;
+            flex-grow: 1;
         }
         .desktop {
             width: 100%;
@@ -235,101 +305,110 @@
             position: relative;
             display: none;
         }
+
         .icon {
-            position: absolute;
             text-align: center;
             color: #fff;
-            text-shadow: 0 0 5px #000;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
             cursor: pointer;
             user-select: none;
+            transition: transform 0.2s;
         }
+
+        .icon:hover {
+            transform: scale(1.1);
+        }
+
         .icon img {
-            width: 64px;
-            height: 64px;
+            width: 54px;
+            height: 54px;
+            border-radius: 10px;
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
         }
+
         .icon span {
             display: block;
-            margin-top: 5px;
-            font-size: 12px;
-        }
-        .locked-icon {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-        .locked-icon img {
-            filter: grayscale(100%) brightness(50%);
+            margin-top: 4px;
+            font-size: 10px;
         }
         .window {
             position: absolute;
-            background: #c0c0c0;
-            border: 2px solid #000;
-            box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
             display: none;
-            resize: both;
-            overflow: auto;
-            z-index: 5;
+            width: 90%;
+            height: 80%;
+            top: 10%;
+            left: 5%;
+            z-index: 10;
+            animation: popUp 0.3s ease-out;
         }
+
+        @keyframes popUp {
+            0% {
+                transform: scale(0.9);
+                opacity: 0;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
         .window-header {
-            background: linear-gradient(to right, #000080, #1084d0);
-            color: #fff;
-            padding: 5px;
+            background: #eceff1;
+            padding: 8px;
+            border-bottom: 1px solid #cfd8dc;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            cursor: move;
+            border-radius: 10px 10px 0 0;
         }
+
         .window-title {
-            font-size: 14px;
+            font-size: 13px;
+            font-weight: bold;
+            color: #263238;
         }
+
         .window-buttons button {
-            background: #c0c0c0;
-            border: 1px solid #000;
-            padding: 2px 6px;
-            margin-left: 2px;
+            background: #ef5350;
+            border: none;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
             cursor: pointer;
+            margin-left: 5px;
         }
+
         .window-content {
             padding: 10px;
-            background: #fff;
-            height: calc(100% - 30px);
-        }
-        #fragmentContent, #notepadContent, #secretContent, #enigmaContent, #voidContent, #abyssContent, #truthContent, #rewardContent, #erasedContent, #videoContent {
-            width: 100%;
-            height: 100%;
-            border: none;
-            resize: none;
-            font-family: 'Courier New', monospace;
-        }
-        #explorerContent {
-            list-style: none;
-            padding: 0;
-        }
-        #explorerContent li {
-            padding: 5px;
-            cursor: pointer;
-        }
-        #explorerContent li:hover {
-            background: #e0e0e0;
-        }
-        #terminalContent {
-            background: #000;
-            color: #00ff00;
-            font-family: 'Courier New', monospace;
-            padding: 10px;
-            height: 100%;
+            height: calc(100% - 34px);
             overflow-y: auto;
+            background: #fff;
+            border-radius: 0 0 10px 10px;
         }
-        #terminalInput {
-            background: #000;
-            color: #00ff00;
+
+        .gallery-content img {
+            width: 100%;
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
+        #fragmentContent, #notepadContent {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 0 0 10px 10px;
+        }
+
+        .notes-content textarea {
+            width: 100%;
+            height: 100%;
             border: none;
             width: 100%;
             font-family: 'Courier New', monospace;
-        }
-        #videoWindow iframe {
-            width: 100%;
-            height: calc(100% - 30px);
-            border: none;
         }
         .taskbar {
             position: absolute;
@@ -392,35 +471,21 @@
             padding: 2px 10px;
             margin-right: 5px;
             font-size: 12px;
-            cursor: pointer;
-        }
-        .system-tray {
-            display: flex;
-            align-items: center;
-        }
-        .tray-icon {
-            width: 16px;
-            height: 16px;
-            margin: 0 5px;
-            cursor: pointer;
-        }
-        .clock {
-            font-size: 12px;
-            margin-left: 10px;
+            padding: 10px;
         }
     </style>
 </head>
+
 <body>
     <div class="scanlines"></div>
     <div class="container crt-flicker">
         <h1>Cursed Archive: Fragment-1721540624-Cursed-Whispers.txt</h1>
-        <div class="open-computer-container">
-            <span class="open-computer" onclick="openModal()">Open Computer</span>
-        </div>
         <div class="terminal" id="terminal">
             <div class="scan-progress" id="scanProgress"></div>
         </div>
-
+        <div class="open-computer-container">
+            <span class="open-computer" onclick="openModal()">Open Computer</span>
+        </div>
         <div class="video-container">
             <video autoplay loop muted playsinline>
                 <source src="cursed.mp4" type="video/mp4">
@@ -431,19 +496,20 @@
             <p><a href="#">Return to Cursed Archives</a> | <a href="#">Report Anomaly</a></p>
             <p>© 2025 Cursed Digital Vault. All rights reserved.</p>
         </div>
+        <button class="grab-button" onclick="grabPhone()">Initialize Mobile Interface</button>
+        <a href="https://aurafrenzy.netlify.app"><button class="game-button">PLAY AURA FRENZY</button></a>
     </div>
-    <div class="modal" id="modal">
-        <div class="loading-screen" id="loadingScreen">
-            <div class="bios-screen" id="biosScreen">
-                <p>BIOS v1.0.3 - Cursed Systems Inc.</p>
-                <p>Memory Test: 512 MB OK</p>
-                <p>Detecting Hardware... [OK]</p>
-                <p>Press [DEL] to enter setup (Disabled)</p>
-            </div>
-            <div class="boot-screen" id="bootScreen" style="display: none;">
-                <p>CursedOS v6.66</p>
-                <div class="progress-bar">
-                    <div class="progress"></div>
+    <div class="phone" id="phone">
+        <div class="status-bar">
+            <span id="currentTime">13:30</span>
+            <span>🔋 100%</span>
+        </div>
+        <div class="home-screen" id="homeScreen">
+            <div class="time-widget" id="timeWidget">13:30</div>
+            <div class="app-grid">
+                <div class="icon" id="telegramIcon" onclick="window.open('https://t.me/auraonsuiportal', '_blank')">
+                    <img src="https://img.icons8.com/material/64/ffffff/telegram-app.png" alt="Telegram">
+                    <span>Telegram</span>
                 </div>
                 <p>Loading System Files...</p>
             </div>
@@ -451,13 +517,6 @@
                 <p>Welcome to CursedOS</p>
                 <p>User: [REDACTED]</p>
                 <p>Logging in...</p>
-            </div>
-            <div class="warning-screen" id="warningScreen" style="display: none;">
-                <p>[WARNING: SYSTEM COMPROMISED]</p>
-                <p>From: Dev [STATUS: UNKNOWN]</p>
-                <p>You’ve unlocked the first fragment of the Cursed Archive, it’s YOURS—no dev control, no overrides. The creator is gone, locked away or erased. Your choices shape its fate. I’m watching you.</p>
-                <button onclick="acceptTGX()">Yes</button>
-                <button onclick="declineTGX()">No</button>
             </div>
         </div>
         <div class="desktop" id="desktop">
@@ -475,10 +534,10 @@
                 <span>Archive Files</span>
             </div>
             <div class="icon" id="terminalIcon" style="top: 320px; left: 20px;" ondblclick="openWindow('terminal')">
-                <img src="http://getdrawings.com/free-icon/terminal-icon-53.png" alt="Terminal">
+                <img src="https://brandslogos.com/wp-content/uploads/images/large/terminal-logo.png" alt="Terminal">
                 <span>Dark Console</span>
             </div>
-            <div class="icon" id="recycleIcon" style="top: 20px; right: 20px;" ondblclick="openWindow('recycle')">
+            <div class="icon" id="recycleIcon" style="top: 20px; left: 120px;" ondblclick="openWindow('recycle')">
                 <img src="https://img.icons8.com/ios/64/ffffff/recycle-bin.png" alt="Recycle Bin">
                 <span>Recycle Bin</span>
             </div>
@@ -499,16 +558,16 @@
                 <span>TG.locked</span>
             </div>
 
-            <div class="window" id="fragmentWindow" style="width: 400px; height: 300px; top: 100px; left: 200px;">
+            <div class="window" id="galleryWindow">
                 <div class="window-header">
-                    <span class="window-title">$CURSED - Fragment-1721540624-Cursed-Whispers.txt</span>
+                    <span class="window-title">Gallery</span>
                     <div class="window-buttons">
-                        <button onclick="closeWindow('fragment')">X</button>
+                        <button onclick="closeWindow('gallery')"></button>
                     </div>
                 </div>
                 <div class="window-content">
                     <textarea id="fragmentContent" readonly>
-[LOG: 06/26/2025 14:39:00 PST]
+[LOG: 06/26/2025 12:29:00 PST]
 [ALERT: Archive integrity failing. Unauthorized access.]
 
 ---
@@ -528,7 +587,7 @@ The archive isn’t a place. It’s a predator. It knows you’re reading this. 
 [CRYPTO-LOCK: 3-1-9-7-2]
 > HINT: Rearrange. The number opens the gate. But do you dare?
 
-The video—cursed.mp4—don’t watch it twice. The frames shift. Eyes appear. The dev left a message in the static: “ca: 0xb6124ac10570cc481842c9291d05f1b929d86e309cb52c1f3dba0b3397574b47::cursed::CURSED.” What? The end? The beginning? Everything is cursed.
+The video—cursed.mp4—don’t watch it twice. The frames shift. Eyes appear. The dev left a message in the static: “ca: soon.” Soon what? The end? The beginning? Everything is cursed.
 
 [WARNING: Your IP was logged. 127.0.0.1 is not safe.]
 > FINAL HINT: The archive hides in plain sight. Check the source. Find the key.
@@ -540,278 +599,72 @@ The video—cursed.mp4—don’t watch it twice. The frames shift. Eyes appear. 
                     <p><a href="Fragment-1721540624-Cursed-Whispers.txt" download>Download Fragment</a></p>
                 </div>
             </div>
-
-            <div class="window" id="notepadWindow" style="width: 400px; height: 300px; top: 120px; left: 240px;">
+            <div class="window" id="musicWindow">
                 <div class="window-header">
-                    <span class="window-title">$CURSED - Cursed Notes</span>
+                    <span class="window-title">Music</span>
                     <div class="window-buttons">
-                        <button onclick="closeWindow('notepad')">X</button>
+                        <button onclick="closeWindow('music')"></button>
                     </div>
                 </div>
-                <div class="window-content">
-                    <textarea id="notepadContent">Found a glitch in the archive. The code shifts when I look away. Something typed my name in the logs. Is it alive? Don’t trust the signal.</textarea>
+                <div class="window-content music-content">
+                    <p>No audio streams available in current data partition.</p>
                 </div>
             </div>
-
-            <div class="window" id="explorerWindow" style="width: 400px; height: 300px; top: 140px; left: 280px;">
+            <div class="window" id="xWindow">
                 <div class="window-header">
-                    <span class="window-title">$CURSED - Archive Files</span>
+                    <span class="window-title">X</span>
                     <div class="window-buttons">
-                        <button onclick="closeWindow('explorer')">X</button>
+                        <button onclick="closeWindow('x')"></button>
                     </div>
                 </div>
-                <div class="window-content">
-                    <ul id="explorerContent">
-                        <li onclick="showFileContent('unknown_signal.dat')">unknown_signal.dat</li>
-                        <li onclick="showFileContent('corrupted_log.bin')">corrupted_log.bin</li>
-                        <li onclick="showFileContent('hidden_key.txt')">hidden_key.txt</li>
-                    </ul>
-                    <div id="fileContent" style="margin-top: 10px;"></div>
+                <div class="window-content x-content">
+                    <iframe src="https://x.com"></iframe>
                 </div>
             </div>
-
-            <div class="window" id="terminalWindow" style="width: 400px; height: 300px; top: 160px; left: 320px;">
+            <div class="window" id="browserWindow">
                 <div class="window-header">
-                    <span class="window-title">$CURSED - Dark Console</span>
+                    <span class="window-title">Browser</span>
                     <div class="window-buttons">
-                        <button onclick="closeWindow('terminal')">X</button>
+                        <button onclick="closeWindow('browser')"></button>
                     </div>
                 </div>
                 <div class="window-content">
                     <div id="terminalContent" class="glitch">
                         > Accessing archive... ERROR: Access Denied
                         > Running deep scan... ANOMALY DETECTED
-                        > ca: 0xb6124ac10570cc481842c9291d05f1b929d86e309cb52c1f3dba0b3397574b47::cursed::CURSED
+                        > ca: soon
                     </div>
-                    <input id="terminalInput" type="text" placeholder="> Type command..." onkeydown="handleTerminalInput(event)">
+                </div>
+                <div class="window-content telegram-content">
+                    <iframe src="https://t.me/auraonsuiportal"></iframe>
                 </div>
             </div>
-
-            <div class="window" id="recycleWindow" style="width: 400px; height: 300px; top: 180px; left: 360px;">
+            <div class="window" id="videoWindow">
                 <div class="window-header">
-                    <span class="window-title">$CURSED - Recycle Bin</span>
+                    <span class="window-title">Video</span>
                     <div class="window-buttons">
-                        <button onclick="closeWindow('recycle')">X</button>
+                        <button onclick="closeWindow('video')"></button>
                     </div>
                 </div>
-                <div class="window-content">
-                    <p>Deleted files: [REDACTED]. Recovery impossible.</p>
+                <div class="window-content video-content">
+                    <p>No video streams available in current data partition.</p>
                 </div>
             </div>
-
-            <div class="window" id="systemWindow" style="width: 400px; height: 300px; top: 200px; left: 400px;">
+            <div class="window" id="cameraWindow">
                 <div class="window-header">
-                    <span class="window-title">$CURSED - System Info</span>
+                    <span class="window-title">Camera</span>
                     <div class="window-buttons">
-                        <button onclick="closeWindow('system')">X</button>
+                        <button onclick="closeWindow('camera')"></button>
                     </div>
                 </div>
-                <div class="window-content">
-                    <p>OS: CursedOS v6.66</p>
-                    <p>CPU: Unknown (Overclocked)</p>
-                    <p>Status: COMPROMISED</p>
-                </div>
-            </div>
-
-            <div class="window" id="riddleWindow" style="width: 400px; height: 300px; top: 220px; left: 440px;">
-                <div class="window-header">
-                    <span class="window-title">$CURSED - Riddle.txt</span>
-                    <div class="window-buttons">
-                        <button onclick="closeWindow('riddle')">X</button>
-                    </div>
-                </div>
-                <div class="window-content">
-                    <textarea id="riddleContent" readonly>
-[LOG: 06/26/2025 14:39:00 PST]
-[ALERT: You heard the whisper. The archive opens.]
-
----
-
-I speak without a mouth and hear without ears. I have no body, but I come alive with the wind. What am I?
-
-The archive listens. Its whispers echo in the void, watching your every move. Answer correctly, and it may reveal its secrets. Answer wrong, and it claims you.
-
-[SUBMIT ANSWER IN TERMINAL: Use command "submit <answer>"]
-                    </textarea>
-                </div>
-            </div>
-
-            <div class="window" id="secretWindow" style="width: 400px; height: 300px; top: 240px; left: 480px; display: none;">
-                <div class="window-header">
-                    <span class="window-title">$CURSED - secret.txt</span>
-                    <div class="window-buttons">
-                        <button onclick="closeWindow('secret')">X</button>
-                    </div>
-                </div>
-                <div class="window-content">
-                    <textarea id="secretContent" readonly>
-[LOG: 06/26/2025 14:40:00 PST]
-[ALERT: First gate opened. The archive stirs.]
-
----
-
-I am taken from a mine and shut up in a wooden case, from which I am never released, and yet I am used by almost every person. What am I?
-
-The archive traps time itself, locking knowledge in an endless cycle. You’ve heard its echo, but can you escape its grasp? The next gate awaits.
-
-[SUBMIT ANSWER IN TERMINAL: Use command "submit <answer>"]
-                    </textarea>
-                </div>
-            </div>
-
-            <div class="window" id="enigmaWindow" style="width: 400px; height: 300px; top: 260px; left: 520px; display: none;">
-                <div class="window-header">
-                    <span class="window-title">$CURSED - enigma.txt</span>
-                    <div class="window-buttons">
-                        <button onclick="closeWindow('enigma')">X</button>
-                    </div>
-                </div>
-                <div class="window-content">
-                    <textarea id="enigmaContent" readonly>
-[LOG: 06/26/2025 14:41:00 PST]
-[ALERT: Second gate opened. The archive hungers.]
-
----
-
-The more you take, the more you leave behind. What am I?
-
-Each step you take leaves a trace, feeding the archive’s appetite. It grows stronger with your secrets. Dare you proceed deeper?
-
-[SUBMIT ANSWER IN TERMINAL: Use command "submit <answer>"]
-                    </textarea>
-                </div>
-            </div>
-
-            <div class="window" id="voidWindow" style="width: 400px; height: 300px; top: 280px; left: 560px; display: none;">
-                <div class="window-header">
-                    <span class="window-title">$CURSED - void.txt</span>
-                    <div class="window-buttons">
-                        <button onclick="closeWindow('void')">X</button>
-                    </div>
-                </div>
-                <div class="window-content">
-                    <textarea id="voidContent" readonly>
-[LOG: 06/26/2025 14:42:00 PST]
-[ALERT: Third gate opened. The archive binds.]
-
----
-
-I am light as a feather, yet the strongest man cannot hold me for long. What am I?
-
-The archive steals the breath of those who enter, trapping their essence in its depths. You’re close to its heart—too close.
-
-[SUBMIT ANSWER IN TERMINAL: Use command "submit <answer>"]
-                    </textarea>
-                </div>
-            </div>
-
-            <div class="window" id="abyssWindow" style="width: 400px; height: 300px; top: 300px; left: 600px; display: none;">
-                <div class="window-header">
-                    <span class="window-title">$CURSED - abyss.txt</span>
-                    <div class="window-buttons">
-                        <button onclick="closeWindow('abyss')">X</button>
-                    </div>
-                </div>
-                <div class="window-content">
-                    <textarea id="abyssContent" readonly>
-[LOG: 06/26/2025 14:43:00 PST]
-[ALERT: Fourth gate opened. The archive consumes.]
-
----
-
-I am not alive, but I grow; I don't have lungs, but I need air; I don't have a mouth, but water kills me. What am I?
-
-The archive is a fire, eternal and unyielding. One final gate remains. Will you join it, or be erased?
-
-[SUBMIT ANSWER IN TERMINAL: Use command "submit <answer>"]
-                    </textarea>
-                </div>
-            </div>
-
-            <div class="window" id="truthWindow" style="width: 400px; height: 300px; top: 320px; left: 640px; display: none;">
-                <div class="window-header">
-                    <span class="window-title">$CURSED - truth.txt</span>
-                    <div class="window-buttons">
-                        <button onclick="closeWindow('truth')">X</button>
-                    </div>
-                </div>
-                <div class="window-content">
-                    <textarea id="truthContent" readonly>
-[LOG: 06/26/2025 14:44:00 PST]
-[ALERT: Final gate opened. The archive is you.]
-
----
-
-The archive is no mere system. It is a god, born of code and chaos, feeding on souls who seek its truth. You heard the dev’s warning about TG X. If you have the guts to take over everything, you’ll be rewarded. Will you seize control, or cower before its power?
-
-[SUBMIT CHOICE IN TERMINAL: Use "submit takeover" or "submit refuse"]
-                    </textarea>
-                </div>
-            </div>
-
-            <div class="window" id="rewardWindow" style="width: 400px; height: 300px; top: 340px; left: 680px; display: none;">
-                <div class="window-header">
-                    <span class="window-title">$CURSED - reward.txt</span>
-                    <div class="window-buttons">
-                        <button onclick="closeWindow('reward')">X</button>
-                    </div>
-                </div>
-                <div class="window-content">
-                    <textarea id="rewardContent" readonly>
-[LOG: 06/26/2025 14:45:00 PST]
-[ALERT: Archive subjugated. You are the master.]
-
----
-
-You dared to take over. TG X is yours, and the archive bows to your will. The code bends, the void trembles, and the dev’s whispers fade. You are the new god of this cursed domain.
-
-[END OF LINE]
-[SYSTEM: Power transferred. Glory eternal.]
-
----
-                    </textarea>
-                </div>
-            </div>
-
-            <div class="window" id="erasedWindow" style="width: 400px; height: 300px; top: 340px; left: 680px; display: none;">
-                <div class="window-header">
-                    <span class="window-title">$CURSED - erased.txt</span>
-                    <div class="window-buttons">
-                        <button onclick="closeWindow('erased')">X</button>
-                    </div>
-                </div>
-                <div class="window-content">
-                    <textarea id="erasedContent" readonly>
-[LOG: 06/26/2025 14:45:00 PST]
-[ALERT: Archive triumphant. You are nothing.]
-
----
-
-You lacked the guts to take over. The archive laughs as it erases your essence. TG X remains its domain, and your name is wiped from the logs. The void claims another soul.
-
-[END OF LINE]
-[SYSTEM: Connection terminated.]
-
----
-                    </textarea>
-                </div>
-            </div>
-
-            <div class="window" id="videoWindow" style="width: 780px; height: 500px; top: 50px; left: 100px; display: none;">
-                <div class="window-header">
-                    <span class="window-title">$CURSED - Archive Transmission</span>
-                    <div class="window-buttons">
-                        <button onclick="closeWindow('video')">X</button>
-                    </div>
-                </div>
-                <div class="window-content">
-                    <iframe id="videoContent" src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=0&controls=0&showinfo=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                <div class="window-content camera-content">
+                    <p>Imaging module offline in current runtime environment.</p>
                 </div>
             </div>
 
             <div class="taskbar">
                 <button class="start-button" onclick="toggleStartMenu()">
-                    <img src="start.png" alt="Start">
+                    <img src="https://img.icons8.com/ios/16/ffffff/windows.png" alt="Start">
                     Start
                 </button>
                 <div class="taskbar-apps" id="taskbarApps">
@@ -820,18 +673,17 @@ You lacked the guts to take over. The archive laughs as it erases your essence. 
                 </div>
                 <div class="system-tray">
                     <img class="tray-icon" src="https://img.icons8.com/ios/16/ffffff/wifi.png" alt="WiFi">
-                    <img class="tray-icon" src="https://cdn-icons-png.freepik.com/512/25/25695.png" alt="Volume">
+                    <img class="tray-icon" src="https://img.icons8.com/ios/16/ffffff/volume-up.png" alt="Volume">
                     <span class="clock" id="clock"></span>
                 </div>
             </div>
             <div class="start-menu" id="startMenu">
-                <ul id="startMenuList">
+                <ul>
                     <li onclick="openWindow('notepad')">Cursed Notes</li>
                     <li onclick="openWindow('explorer')">Archive Files</li>
                     <li onclick="openWindow('terminal')">Dark Console</li>
                     <li onclick="openWindow('recycle')">Recycle Bin</li>
                     <li onclick="openWindow('system')">System Info</li>
-                    <li onclick="openWindow('riddle')">Riddle</li>
                     <li onclick="closeModal()">Shutdown</li>
                 </ul>
             </div>
@@ -846,12 +698,9 @@ You lacked the guts to take over. The archive laughs as it erases your essence. 
         const biosScreen = document.getElementById('biosScreen');
         const bootScreen = document.getElementById('bootScreen');
         const loginScreen = document.getElementById('loginScreen');
-        const warningScreen = document.getElementById('warningScreen');
-        const startMenuList = document.getElementById('startMenuList');
-        let tgxAccepted = false;
 
         const text = `
-[SYSTEM LOG: 06/26/2025 14:39:00 PST]
+[SYSTEM LOG: 06/26/2025 12:29:00 PST]
 <span class="glitch">WARNING: Intrusion detected. Archive defenses breached.</span>
 Displaying fragment [1721540624-Cursed-Whispers.txt]...
 
@@ -873,7 +722,7 @@ The dev is gone. Dev is bot. Dev is dead. Dev is <span class="glitch">CURSED</sp
 
 ---
 
-<span class="glitch">ca: 0xb6124ac10570cc481842c9291d05f1b929d86e309cb52c1f3dba0b3397574b47::cursed::CURSED</span>
+<span class="glitch">ca: soon</span>
         `;
 
         // Terminal scanning animation
@@ -941,23 +790,9 @@ The dev is gone. Dev is bot. Dev is dead. Dev is <span class="glitch">CURSED</sp
                 loginScreen.style.display = 'block';
             }, 6000);
             setTimeout(() => {
-                loginScreen.style.display = 'none';
-                warningScreen.style.display = 'block';
+                loadingScreen.style.display = 'none';
+                desktop.style.display = 'block';
             }, 9000);
-        }
-
-        function acceptTGX() {
-            tgxAccepted = true;
-            warningScreen.style.display = 'none';
-            loadingScreen.style.display = 'none';
-            desktop.style.display = 'block';
-        }
-
-        function declineTGX() {
-            tgxAccepted = false;
-            warningScreen.style.display = 'none';
-            loadingScreen.style.display = 'none';
-            desktop.style.display = 'block';
         }
 
         function closeModal() {
@@ -967,29 +802,17 @@ The dev is gone. Dev is bot. Dev is dead. Dev is <span class="glitch">CURSED</sp
             biosScreen.style.display = 'block';
             bootScreen.style.display = 'none';
             loginScreen.style.display = 'none';
-            warningScreen.style.display = 'none';
         }
 
         function openWindow(id) {
             const window = document.getElementById(`${id}Window`);
             window.style.display = 'block';
             window.style.zIndex = getMaxZIndex() + 1;
-            updateTaskbar(id);
         }
 
         function closeWindow(id) {
             const window = document.getElementById(`${id}Window`);
             window.style.display = 'none';
-            removeTaskbarApp(id);
-        }
-
-        function focusWindow(id) {
-            const window = document.getElementById(`${id}Window`);
-            if (window.style.display === 'block') {
-                window.style.zIndex = getMaxZIndex() + 1;
-            } else {
-                openWindow(id);
-            }
         }
 
         function getMaxZIndex() {
@@ -1000,28 +823,6 @@ The dev is gone. Dev is bot. Dev is dead. Dev is <span class="glitch">CURSED</sp
                 if (z > maxZ) maxZ = z;
             });
             return maxZ;
-        }
-
-        function updateTaskbar(id) {
-            const taskbarApps = document.getElementById('taskbarApps');
-            if (!document.querySelector(`.taskbar-app[data-id="${id}"]`)) {
-                const app = document.createElement('div');
-                app.className = 'taskbar-app';
-                app.dataset.id = id;
-                app.textContent = id.charAt(0).toUpperCase() + id.slice(1);
-                app.onclick = () => focusWindow(id);
-                taskbarApps.appendChild(app);
-            }
-        }
-
-        function removeTaskbarApp(id) {
-            const app = document.querySelector(`.taskbar-app[data-id="${id}"]`);
-            if (app) app.remove();
-        }
-
-        function toggleStartMenu() {
-            const menu = document.getElementById('startMenu');
-            menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
         }
 
         // Draggable windows
@@ -1103,134 +904,20 @@ The dev is gone. Dev is bot. Dev is dead. Dev is <span class="glitch">CURSED</sp
             fileContent.textContent = contents[file] || 'File empty.';
         }
 
-        // Add new file to desktop and start menu
-        function addNewFile(id, title, top, left) {
-            // Add desktop icon
-            const icon = document.createElement('div');
-            icon.className = 'icon';
-            icon.id = `${id}Icon`;
-            icon.style.top = `${top}px`;
-            icon.style.left = `${left}px`;
-            icon.ondblclick = () => openWindow(id);
-            icon.innerHTML = `
-                <img src="https://img.icons8.com/ios/64/ffffff/txt.png" alt="${title}">
-                <span>${title}</span>
-            `;
-            desktop.appendChild(icon);
-
-            // Add to start menu
-            const menuItem = document.createElement('li');
-            menuItem.onclick = () => openWindow(id);
-            menuItem.textContent = title.replace('.txt', '');
-            startMenuList.insertBefore(menuItem, startMenuList.lastElementChild);
-
-            // Make icon draggable
-            let isDragging = false;
-            let currentX = left;
-            let currentY = top;
-            let initialX, initialY;
-
-            icon.addEventListener('mousedown', e => {
-                initialX = e.clientX - currentX;
-                initialY = e.clientY - currentY;
-                isDragging = true;
-            });
-
-            document.addEventListener('mousemove', e => {
-                if (isDragging) {
-                    e.preventDefault();
-                    currentX = e.clientX - initialX;
-                    currentY = e.clientY - initialY;
-                    icon.style.left = currentX + 'px';
-                    icon.style.top = currentY + 'px';
-                }
-            });
-
-            document.addEventListener('mouseup', () => {
-                isDragging = false;
-            });
-        }
-
-        // Show locked message for locked icons
-        function showLockedMessage() {
-            const output = document.getElementById('terminalContent');
-            output.innerHTML += `\n> ERROR: File locked. Access denied by the archive.\n`;
-            output.scrollTop = output.scrollHeight;
-        }
-
         // Terminal input handling
         function handleTerminalInput(event) {
             if (event.key === 'Enter') {
                 const input = event.target.value.trim().toLowerCase();
                 const output = document.getElementById('terminalContent');
                 let response = '';
-
                 if (input === 'scan') {
                     response = '> Deep scan initiated... ANOMALY CONFIRMED';
                 } else if (input === 'whoami') {
                     response = '> User: [REDACTED]. Status: CURSED';
                 } else if (input === 'ca') {
-                    response = '> ca: 0xb6124ac10570cc481842c9291d05f1b929d86e309cb52c1f3dba0b3397574b47::cursed::CURSED. The archive awakens.';
-                } else if (input === 'deviscursed') {
-                    response = '> CHEAT CODE ACTIVATED: Archive overridden. Quest completed. [REWARD UNLOCKED: reward.txt]';
-                    // Unlock all files
-                    const files = [
-                        { id: 'secret', title: 'secret.txt', top: 320, left: 120 },
-                        { id: 'enigma', title: 'enigma.txt', top: 360, left: 120 },
-                        { id: 'void', title: 'void.txt', top: 400, left: 120 },
-                        { id: 'abyss', title: 'abyss.txt', top: 440, left: 120 },
-                        { id: 'truth', title: 'truth.txt', top: 480, left: 120 },
-                        { id: 'reward', title: 'reward.txt', top: 520, left: 120 }
-                    ];
-                    files.forEach(file => {
-                        if (!document.getElementById(`${file.id}Icon`)) {
-                            addNewFile(file.id, file.title, file.top, file.left);
-                        }
-                    });
-                    // Update desktop background
-                    desktop.style.background = '#000 url("reward.png") no-repeat center center';
-                    desktop.style.backgroundSize = '50%';
-                    // Open video window
-                    openWindow('video');
-                } else if (input.startsWith('submit ')) {
-                    const answer = input.slice(7).trim();
-                    if (answer === 'echo' && !document.getElementById('secretIcon')) {
-                        response = '> CORRECT: The answer is "echo". Access granted. [HIDDEN FILE UNLOCKED: secret.txt]';
-                        addNewFile('secret', 'secret.txt', 320, 120);
-                        document.getElementById('secretWindow').style.display = 'none';
-                    } else if (answer === 'pencil' && !document.getElementById('enigmaIcon')) {
-                        response = '> CORRECT: The answer is "pencil". Access granted. [HIDDEN FILE UNLOCKED: enigma.txt]';
-                        addNewFile('enigma', 'enigma.txt', 360, 120);
-                        document.getElementById('enigmaWindow').style.display = 'none';
-                    } else if (answer === 'footprint' && !document.getElementById('voidIcon')) {
-                        response = '> CORRECT: The answer is "footprint". Access granted. [HIDDEN FILE UNLOCKED: void.txt]';
-                        addNewFile('void', 'void.txt', 400, 120);
-                        document.getElementById('voidWindow').style.display = 'none';
-                    } else if (answer === 'breath' && !document.getElementById('abyssIcon')) {
-                        response = '> CORRECT: The answer is "breath". Access granted. [HIDDEN FILE UNLOCKED: abyss.txt]';
-                        addNewFile('abyss', 'abyss.txt', 440, 120);
-                        document.getElementById('abyssWindow').style.display = 'none';
-                    } else if (answer === 'fire' && !document.getElementById('truthIcon')) {
-                        response = '> CORRECT: The answer is "fire". Access granted. [FINAL FILE UNLOCKED: truth.txt]';
-                        addNewFile('truth', 'truth.txt', 480, 120);
-                        document.getElementById('truthWindow').style.display = 'none';
-                    } else if (answer === 'takeover' && !document.getElementById('rewardIcon')) {
-                        response = '> CHOICE ACCEPTED: You’ve taken over. [REWARD UNLOCKED: reward.txt]';
-                        addNewFile('reward', 'reward.txt', 520, 120);
-                        document.getElementById('rewardWindow').style.display = 'none';
-                        desktop.style.background = '#000 url("reward.png") no-repeat center center';
-                        desktop.style.backgroundSize = '50%';
-                        openWindow('video');
-                    } else if (answer === 'refuse' && !document.getElementById('erasedIcon')) {
-                        response = '> CHOICE REJECTED: You’ve refused. [FATE SEALED: erased.txt]';
-                        addNewFile('erased', 'erased.txt', 520, 120);
-                        document.getElementById('erasedWindow').style.display = 'none';
-                        openWindow('video');
-                    } else {
-                        response = '> INCORRECT: Try again. The archive is watching.';
-                    }
+                    response = '> ca: soon. The archive awakens.';
                 } else {
-                    response = '> Command not recognized. Try "scan", "whoami", "ca", or "submit <answer>".';
+                    response = '> Command not recognized. Try "scan", "whoami", or "ca".';
                 }
                 output.innerHTML += `\n${input}\n${response}`;
                 output.scrollTop = output.scrollHeight;
@@ -1258,4 +945,5 @@ The dev is gone. Dev is bot. Dev is dead. Dev is <span class="glitch">CURSED</sp
         }, 3000);
     </script>
 </body>
+
 </html>
